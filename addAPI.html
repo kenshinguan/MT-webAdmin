@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>API测试页面</title>
+    <link href="css/zui.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <style type="text/css">
+        html, body {
+            overflow-x: hidden;
+            height: 100%;
+            width: 100%;
+        }
+
+        .leftpart {
+            padding: 20px;
+            box-sizing: border-box;
+            border-right: 1px solid #ccc;
+            height: 100%;
+        }
+
+        .leftpart table {
+            width: 100%;
+        }
+
+        .leftpart table tr td:first-child {
+            width: 100px;
+        }
+
+        .leftpart tr td, .leftpart tr th {
+            padding: 5px;
+            line-height: 20px;
+        }
+
+
+
+        .leftpart input[type=text] {
+            width: 200px;
+            display: inline-block;
+        }
+
+        .leftpart input[type=text].text-lg {
+            width: 260px;
+        }
+
+        .leftpart .control {
+            margin-bottom: 10px;
+        }
+
+        .leftpart .control .control-label {
+            display: inline-block;
+            width: 60px;
+            text-align: right;
+        }
+
+        .vtop {
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid " style="height: 100%;">
+        <div class="row  " style="height: 100%;">
+            <div class="leftpart  col-xs-6">
+                <table>
+                    <tr>
+                        <td>接口名称:</td>
+                        <td>
+                            <input type="text" class="form-control text-lg" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>接口地址:</td>
+                        <td>
+                            <input type="text" class="form-control text-lg" id="sendUrl" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="vtop">接口参数:</td>
+                        <td>
+                            <table class="table-bordered" style="width: 500px; float: left" id="keytable">
+                                <tr>
+                                    <th>key</th>
+                                    <th>value</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="text" class="form-control" />
+
+
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control text-lg" /></td>
+                                </tr>
+                            </table>
+                            <input type="button" value="添加" class="btn btn-primary ml10 " id="addkey" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="button" value="测试" class="btn btn-success " id="testajax" />
+                            <input type="button" value="保存" class="btn btn-primary " id="sendBtn" /></td>
+
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td>发送参数</td>
+                        <td>
+                            <pre id="pretxt">
+                                 
+                            </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class=" col-xs-6">
+                <pre id="result">
+
+
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/zui.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#addkey").click(function () {
+            var str = '<tr><td><input type="text" class="form-control" /> </td><td><input type="text" class="form-control text-lg" /></td></tr>';
+            $("#keytable").append(str);
+        })
+        $("#testajax").click(function () {
+
+            var param = {};
+            $("#keytable tr").slice(1).each(function () {
+
+                var key = $.trim($(this).find("td:first-child input[type=text]").val());
+                if (key) {
+                    param[key] = $.trim($(this).find("td:last-child input[type=text]").val());
+                }
+            })
+            // alert(JSON.stringify(param));
+            //
+
+            $("#pretxt").text(JsonUti.convertToString(param));
+          
+            //执行ajax返回数据
+            var sendUrl = $.trim($("#sendUrl").val());
+         
+            if (sendUrl) {
+                /*测试假数据 star*/
+                var result = {
+                    id: "2155",
+                    name: "test1",
+                    mobile_phone: "test1",
+                    user_money: "1631.76",
+                    rank_name: "注册用户",
+                };
+                $("#result").text(JsonUti.convertToString(result));
+                /*测试假数据 end*/
+                $.ajax({
+                    'url': sendUrl,
+                    'data': param,
+                    'dataType': 'json',
+                    'type': 'post',
+                    'success': function (data) {
+                        var result = data
+
+                        $("#result").text(JsonUti.convertToString(result));
+                    },
+                    'error': function (i, data) {
+                        $.zui.messager.show('连接出错，请重试或刷新。');
+                   
+                    }
+                });
+            }
+            else {
+                
+                $.zui.messager.show('接口地址不能为空');
+            }
+
+        })
+    })
+    var JsonUti = {
+        //定义换行符
+        n: "\n",
+        //定义制表符
+        t: "\t",
+        //转换String
+        convertToString: function (obj) {
+            return JsonUti.__writeObj(obj, 1);
+        },
+        //写对象
+        __writeObj: function (obj    //对象
+                , level             //层次（基数为1）
+                , isInArray) {       //此对象是否在一个集合内
+            //如果为空，直接输出null
+            if (obj == null) {
+                return "null";
+            }
+            //为普通类型，直接输出值
+            if (obj.constructor == Number || obj.constructor == Date || obj.constructor == String || obj.constructor == Boolean) {
+                var v = obj.toString();
+                var tab = isInArray ? JsonUti.__repeatStr(JsonUti.t, level - 1) : "";
+                if (obj.constructor == String || obj.constructor == Date) {
+                    //时间格式化只是单纯输出字符串，而不是Date对象
+                    return tab + ("\"" + v + "\"");
+                }
+                else if (obj.constructor == Boolean) {
+                    return tab + v.toLowerCase();
+                }
+                else {
+                    return tab + (v);
+                }
+            }
+
+            //写Json对象，缓存字符串
+            var currentObjStrings = [];
+            //遍历属性
+            for (var name in obj) {
+                var temp = [];
+                //格式化Tab
+                var paddingTab = JsonUti.__repeatStr(JsonUti.t, level);
+                temp.push(paddingTab);
+                //写出属性名
+                temp.push(name + " : ");
+
+                var val = obj[name];
+                if (val == null) {
+                    temp.push("null");
+                }
+                else {
+                    var c = val.constructor;
+
+                    if (c == Array) { //如果为集合，循环内部对象
+                        temp.push(JsonUti.n + paddingTab + "[" + JsonUti.n);
+                        var levelUp = level + 2;    //层级+2
+
+                        var tempArrValue = [];      //集合元素相关字符串缓存片段
+                        for (var i = 0; i < val.length; i++) {
+                            //递归写对象                         
+                            tempArrValue.push(JsonUti.__writeObj(val[i], levelUp, true));
+                        }
+
+                        temp.push(tempArrValue.join("," + JsonUti.n));
+                        temp.push(JsonUti.n + paddingTab + "]");
+                    }
+                    else if (c == Function) {
+                        temp.push("[Function]");
+                    }
+                    else {
+                        //递归写对象
+                        temp.push(JsonUti.__writeObj(val, level + 1));
+                    }
+                }
+                //加入当前对象“属性”字符串
+                currentObjStrings.push(temp.join(""));
+            }
+            return (level > 1 && !isInArray ? JsonUti.n : "")                       //如果Json对象是内部，就要换行格式化
+                + JsonUti.__repeatStr(JsonUti.t, level - 1) + "{" + JsonUti.n     //加层次Tab格式化
+                + currentObjStrings.join("," + JsonUti.n)                       //串联所有属性值
+                + JsonUti.n + JsonUti.__repeatStr(JsonUti.t, level - 1) + "}";   //封闭对象
+        },
+        __isArray: function (obj) {
+            if (obj) {
+                return obj.constructor == Array;
+            }
+            return false;
+        },
+        __repeatStr: function (str, times) {
+            var newStr = [];
+            if (times > 0) {
+                for (var i = 0; i < times; i++) {
+                    newStr.push(str);
+                }
+            }
+            return newStr.join("");
+        }
+    };
+
+</script>

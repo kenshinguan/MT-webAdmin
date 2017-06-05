@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--[if lt IE 9]>
+     <script src="dist/lib/ieonly/html5shiv.js"></script>
+     <script src="dist/lib/ieonly/respond.js"></script>
+     <script src="dist/lib/ieonly/excanvas.js"></script>
+    <![endif]-->
+    <link href="css/zui.css" rel="stylesheet" />
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/zui.js"></script>
+    <script src="js/common.js"></script>
+    <link href="css/common.css" rel="stylesheet" />
+    <title>左侧导航-设置</title>
+</head>
+
+<body class="menubg">
+    <div class="aside-nav" style="padding-top: 10px">
+        <ul class="menu" id="aside-nav">
+            <li><h5>版本</h5></li>
+            <li>
+                <a href="app_list.html" target="container" class="active">
+                    <i class="iconfont icon-quanxian"></i>
+                    <b>APP</b>
+                </a>
+            </li>
+            <li>
+                <a href="version.html" target="container">
+                    <i class="iconfont icon-quanxian"></i>
+                    <b>设备</b>
+                </a>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    $(function () {
+        $('#aside-nav li a').click(function () {
+            $('#aside-nav li a.active').removeClass('active');
+            $(this).addClass('active');
+        })
+    })
+</script>
+

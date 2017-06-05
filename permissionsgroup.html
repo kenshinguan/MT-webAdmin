@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>权限组</title>
+		<link href="css/zui.css" rel="stylesheet" />
+		<link href="lib/datatable/zui.datatable.min.css" rel="stylesheet" />
+		<link href="css/common.css" rel="stylesheet" />
+		<link href="css/page.css" rel="stylesheet" />
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script src="js/zui.js"></script>
+		<script src="lib/datatable/zui.datatable.min.js"></script>
+		<script src="js/common.js"></script>
+		<style type="text/css">
+			.panel {
+				/*width: 80%;
+				margin: 10px auto;*/
+				width: 100%;
+			}
+			/*.panel .panel-body{
+				display: none;
+			}*/
+			
+			.grouplist {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				width: 100%;
+				overflow: auto;
+			}
+			
+			.cols-main {
+				min-height: 600px;
+				height: 100%;
+				position: relative;
+			}
+			
+			.grouplist label {
+				font-weight: normal;
+				line-height: 30px;
+				display: block;
+				margin: 0 5px;
+			}
+			
+			.grouplist label input[type=checkbox] {
+				vertical-align: middle;
+				margin: -3px 5px 0 0;
+			}
+			
+			.grouplist table tr th {
+				line-height: 30px;
+				background: #fafafa;
+			}
+		</style>
+	</head>
+
+	<body class="minwidth1080">
+		<div class="head">
+			<div class="modal fade addModal" id="addModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+							<h4 class="modal-title">新建</h4>
+						</div>
+						<div class="modal-body">
+							<form method="" action="" class="modal-form">
+								<p>
+									<label for="">权限组名称</label>
+									<input type="text" name="" id="PerName" value="" />
+
+								</p>
+								<p>
+									<label for="">权限组序号</label>
+									<input type="text" name="" id="PerNumber" value="" />
+								</p>
+							</form>
+						</div>
+						<div class="modal-footer text-center">
+							<button type="button" class="btn btn-primary" onclick="addpermissions()">确定</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade addModal" id="editModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+							<h4 class="modal-title">编辑</h4>
+						</div>
+						<div class="modal-body">
+							<form method="" action="" class="modal-form">
+								<input type="hidden" name="editPerId" id="editPerId" value="" />
+								<p>
+									<label for="">权限组名称</label>
+									<input type="text" name="" id="editPerName" value="" />
+
+								</p>
+								<p>
+									<label for="">权限组序号</label>
+									<input type="text" name="" id="editPerNumber" value="" />
+								</p>
+							</form>
+						</div>
+						<div class="modal-footer text-center">
+							<button type="button" class="btn btn-primary" onclick="editpermissions()">确定</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<ol class="breadcrumb">
+				<li>
+					<a href="your/url/"><i class="icon icon-home"></i>当前位置</a>
+				</li>
+				<li>
+					<a href="your/url/">设置</a>
+				</li>
+				<li class="active">权限组</li>
+			</ol>
+			<div class="row operationbar">
+				<div class="col-md-7">
+					<!--<button class="btn btn-primary" type="button" data-moveable="true" data-toggle="modal" data-target="#addModal">新增</button>
+					<button class="btn" type="button" onclick="delItem()">删除</button>-->
+					<button class="btn btn-primary" type="button" onclick="addPerGroup()">新增</button>
+					<button class="btn btn-primary js-editBtn" type="button" onclick="editItem(this)">编辑</button>
+				</div>
+				<div class="col-md-5">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="icon-search"></i></span>
+						<input type="text" class="form-control">
+
+						<span class="input-group-btn">
+                        <button class="btn btn-default" type="button">搜索</button>
+                    </span>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+		<div class="main">
+			<div class='cols-wrap mt20'>
+				<div class="cols-main " style="width: 100%; ">
+					<div class="grouplist"  style="width: 80%;"></div>
+					<!-- <table class="table table-striped table-bordered cardTable table-datatable">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>权限id</th>
+
+                            <th>权限名称</th>
+                            <th>权限类型</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>-->
+					<script type="text/html" id="temp">
+						{{each item as value}}
+						<div class="panel">
+							<div class="panel-heading">
+								<label data-id="{{value.id}}">
+									{{if value.isCheck}}
+									<input type="checkbox" checked="checked" disabled="disabled"/>
+									{{else}}<input type="checkbox" disabled="disabled"/>
+									{{/if}}{{value.name}}</label>
+							</div>
+							<div class="panel-body">
+								<table class="table table-bordered">
+									<tr>
+										<th style="width: 200px;">分组</th>
+										<th>权限</th>
+									</tr>
+									{{each value.sub as sub}}
+									<tr>
+										<td><label data-id="{{sub.id}}">
+									{{if sub.isCheck}}
+									<input type="checkbox" checked="checked" disabled="disabled"/>
+									{{else}}<input type="checkbox" disabled="disabled"/>
+									{{/if}}{{sub.name}}</label></td>
+										<td>
+											{{each sub.sub as child}}
+											<label data-id="{{child.id}}">
+									{{if child.isCheck}}
+									<input type="checkbox" checked="checked" disabled="disabled"/>
+									{{else}}<input type="checkbox" disabled="disabled"/>
+									{{/if}}{{child.name}}</label> {{/each}}
+											<!--<label><input type="checkbox" />项目</label>
+											<label><input type="checkbox" />项目</label>-->
+										</td>
+									</tr>
+									{{/each}}
+								</table>
+							</div>
+						</div>
+						{{/each}}</script>
+				</div>
+				<div class="cols-aside submenu">
+					<div class="hd">类别列表</div>
+					<ul class="bd ">
+						<!--<li class="open">
+							<a href="javascript:;"><i></i>模块</a>
+							<ul>
+								<li>
+									<a href="">模块一</a>
+								</li>
+								<li>
+									<a href="">模块二</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="javascript:;"><i></i>模块</a>
+							<ul>
+								<li>
+									<a href="">模块一</a>
+								</li>
+								<li>
+									<a href="">模块二</a>
+								</li>
+							</ul>
+						</li>-->
+					</ul>
+				</div>
+			</div>
+
+		</div>
+		<!-- <div class="footer row">
+        <div class="col-md-8 leftpage">
+            <select class="form-control text-center">
+                <option>10</option>
+            </select>
+            <span>从第1条到第10条,总计：82条</span>
+        </div>
+        <div class="text-right col-md-4">
+            <ul class="pager ">
+                <li class="previous disabled" title="1"><a href="#">上一页</a></li>
+                <li><a href="javascri:void(0)">…</a></li>
+                <li class="active" data-page="1" title="2"><a href="#">1</a></li>
+                <li data-page="2"><a href="#">2</a></li>
+                <li data-page="3"><a href="#">3</a></li>
+                <li data-page="4"><a href="#">4</a></li>
+                <li data-page="5"><a href="#">5</a></li>
+                <li><a href="javascri:void(0)">…</a></li>
+                <li class="next"><a href="#">下一页</a></li>
+            </ul>
+            <input type="text" id="numtxt" />
+            <input type="submit" value="跳转" class="btn" id="gotopage" />
+        </div>
+    </div>-->
+
+	</body>
+
+</html>
+<script src="js/template.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	var powerGroupId = '';
+
+	$(function() {
+		/*高度*/
+		var h = $(window).height();
+		$('.cols-main').css('height', (h - 120) + 'px');
+		$('.submenu .bd> li>a').click(function() {
+			if($(this).parent('li').hasClass('open')) {
+				$(this).parent('li').removeClass('open');
+			} else {
+				$('.submenu .bd> li.open').removeClass('open')
+				$(this).parent('li').addClass('open');
+			}
+		})
+		$(".submenu  ul").on("click", "a", function() {
+			$(".submenu a.active").removeClass("active")
+			$(this).addClass("active");
+			powerGroupId = $(this).parents("li").attr("data-id");
+			getpower($(this).parents("li").attr("data-id"));
+		})
+		$(".submenu  ul").on("click", "a span", function(e) {
+				e.stopPropagation();
+				var $me = $(this).closest('li');
+				$('#editModal #editPerId').val($me.attr('data-id'));
+				$('#editModal #editPerName').val($me.attr('data-name'));
+				$('#editModal #editPerNumber').val($me.attr('data-number'));
+				$('#editModal').modal('show');
+			})
+		
+//		$('.cols-aside.submenu ul ul li').hover(function(){
+//			$('.cols-aside.submenu ul ul li a span.hover').removeClass('hover');
+//			$(this).find('span').addClass('hover');
+//		})
+			/*权限组*/
+		$('.grouplist').on('change', '.panel .panel-heading input[type=checkbox]', function(e) {
+				e.stopPropagation();
+
+				var $checked = $(this).parents('.panel').find('.panel-body input[type=checkbox]');
+				if($(this).is(':checked')) {
+					$checked.prop('checked', true);
+				} else {
+					$checked.prop('checked', false);
+				}
+
+			})
+			/*权限组-二级分类*/
+		$('.grouplist').on('change', '.panel .table tr td:nth-child(1) input[type=checkbox]', function(e) {
+				e.stopPropagation();
+				var $checked = $(this).parents('tr').find('td:not(:nth-child(1)) input[type=checkbox]');
+				if($(this).is(':checked')) {
+					$checked.prop('checked', true);
+				} else {
+					$(this).parents('.panel').find('.panel-heading input[type=checkbox]').prop('checked', false);
+					$checked.prop('checked', false);
+				}
+
+			})
+			/*权限组-所有权限*/
+		$('.grouplist').on('change', '.panel .table tr td:nth-child(2) input[type=checkbox]', function(e) {
+			e.stopPropagation();
+
+			if(!$(this).is(':checked')) {
+				$(this).parents('.panel').find('.panel-heading input[type=checkbox]').prop('checked', false);
+				$(this).parents('tr').find('td:nth-child(1) input[type=checkbox]').prop('checked', false);
+			}
+
+		})
+		getdata();
+		//getallpermissions();
+	})
+
+	function getdata() {
+		var param = {
+			"sessionKey": session.sessionKey,
+			"sessionId": session.sessionId
+		}
+		$.ajax({
+
+			type: 'post',
+			url: service + "power/get_all_powergroup",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+
+				console.log(JSON.stringify(data));
+				if(data.ret == 'ok') {
+					var item = data.item;
+					var str = ' <li class="open"><a href="javascript:;"><i></i>权限组</a> <ul>';
+					//var group = '';
+					for(var i = 0; i < item.length; i++) {
+						for(var i = 0; i < item.length; i++) {
+							str += ' <li data-id="' + item[i].id + '" data-name="' + item[i].name + '" data-number="' + item[i].number + '"> <a href="javascript:;">' + item[i].name + '(' + item[i].number + ')<span style="font-size:12px; margin-left:10px">编辑</span></a> </li>';
+							//group += '<option value="' + item[i].id + '">' + item[i].name + '</option>';
+						}
+						str += "</ul>";
+						$(".submenu ul.bd").html(str);
+						//$("#group").html(group);
+
+					}
+					powerGroupId = item[0].id;
+					$(".submenu ul.bd").find('ul a').eq(0).addClass('active');
+					getpower(item[0].id);
+				}
+
+				//var depart = '';
+				//for (var i = 0; i < select.length; i++) {
+				//    depart += ' <option value="' + select[i].pid + '">' + select[i].labelName + '</option>'
+				//}
+				//$("#depart").html(depart);
+
+			},
+			error: function() {
+				alert("发生错误");
+			}
+		});
+
+	};
+
+	function getpower(powerGroupId) {
+
+		var param = {
+			"powerGroupId": powerGroupId,
+			"sessionKey": session.sessionKey,
+			"sessionId": session.sessionId
+		}
+		$.ajax({
+
+			type: 'post',
+			url: service + "power/find_user_power",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+
+				console.log("权限" + JSON.stringify(data));
+				if(data.ret == 'ok') {
+					var item = data.item;
+					var str = '';
+					if(item) {
+						var html = template('temp', data);
+						$('.grouplist').html(html);
+
+					}
+
+				}
+
+			},
+			error: function() {
+				alert("发生错误");
+			}
+		});
+	}
+
+	/**
+	 * 编辑
+	 */
+	function editItem(obj) {
+		if($(obj).hasClass('active')) {
+
+			setpermissions();
+		} else {
+			$(obj).addClass('active');
+			$(obj).text('保存');
+			$('.grouplist input[type=checkbox]').removeAttr('disabled');
+		}
+
+	}
+	/**
+	 * 设置权限
+	 */
+	function setpermissions() {
+		var linkPowers = [];
+		$('.grouplist input[type=checkbox]:checked').each(function() {
+			var checkid = $(this).parent('label').attr('data-id');
+			if(checkid) {
+				linkPowers.push(checkid);
+			}
+		})
+		var param = {
+				"linkPowers": JSON.stringify(linkPowers),
+				"powerGroupId": powerGroupId,
+				"sessionKey": session.sessionKey,
+				"sessionId": session.sessionId,
+				"operater": operater
+			}
+			//alert(JSON.stringify(param));
+
+		$.ajax({
+
+			type: 'post',
+			url: service + "power/modify_link_power",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+
+				console.log("权限" + JSON.stringify(data));
+
+				var msg = $.zui.messager.show(data.reason, {
+					placement: 'top',
+					time: '1000'
+				});
+				$('.js-editBtn').removeClass('active');
+				$('.js-editBtn').text('编辑');
+				$('.grouplist input[type=checkbox]').attr('disabled', 'disabled');
+			},
+			error: function() {
+				alert("发生错误");
+				$('.js-editBtn').removeClass('active');
+				$('.js-editBtn').text('编辑');
+				$('.grouplist input[type=checkbox]').attr('disabled', 'disabled');
+			}
+		});
+	}
+	/**
+	 * 新增权限组
+	 */
+	function addPerGroup() {
+		$('#addModal input[type=text]').val('');
+		$('#addModal').modal('show');
+	}
+	/*确认添加权限*/
+	function addpermissions() {
+		var name = $('#PerName').val();
+		var number = $('#PerNumber').val();
+		if(!name || !number) {
+			alert('请输入权限名和权限编号')
+			return false;
+		}
+		var param = {
+				"name": name,
+				"number": number,
+				"sessionKey": session.sessionKey,
+				"sessionId": session.sessionId,
+
+			}
+			//alert(JSON.stringify(param));
+
+		$.ajax({
+
+			type: 'post',
+			url: service + "power/save_powergroup",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+
+				console.log("权限" + JSON.stringify(data));
+				var msg = $.zui.messager.show(data.reason, {
+					placement: 'top',
+					time: '1000'
+				});
+				window.setTimeout(function() {
+					window.location.reload();
+				}, 1000)
+			},
+			error: function() {
+				alert("发生错误");
+
+			}
+		});
+	} /*确定修改权限组*/
+	function editpermissions() {
+		var id = $('#editPerId').val();
+		var name = $('#editPerName').val();
+		var number = $('#editPerNumber').val();
+		if(!name || !number) {
+			alert('请输入权限名和权限编号')
+			return false;
+		}
+		var param = {
+				"id": id,
+				"name": name,
+				"number": number,
+				"sessionKey": session.sessionKey,
+				"sessionId": session.sessionId,
+
+			}
+			//alert(JSON.stringify(param));
+
+		$.ajax({
+
+			type: 'post',
+			url: service + "power/update_powergroup",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+
+				console.log("权限" + JSON.stringify(data));
+				var msg = $.zui.messager.show(data.reason, {
+					placement: 'top',
+					time: '1000'
+				});
+				window.setTimeout(function() {
+					window.location.reload();
+				}, 1000)
+
+			},
+			error: function() {
+				alert("发生错误");
+
+			}
+		});
+	}
+</script>

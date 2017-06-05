@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>设置</title>
+		<link href="css/zui.css" rel="stylesheet" />
+		<link href="css/chosen.css" rel="stylesheet" />
+		<link href="lib/datatable/zui.datatable.min.css" rel="stylesheet" />
+		<link href="css/common.css" rel="stylesheet" />
+		<link href="css/page.css" rel="stylesheet" />
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script src="js/zui.js"></script>
+		<script src="js/chosen.js"></script>
+		<script src="lib/datatable/zui.datatable.min.js"></script>
+		<script src="js/common.js"></script>
+	</head>
+	<style type="text/css">
+		.addModal form p {
+			color: #f00;
+		}
+		
+		.addModal form label {
+			color: #333;
+		}
+		
+		.addModal .user_type {
+			width: 4em;
+		}
+		
+		#addPerGroup form p {
+			color: #000000;
+		}
+		
+		.chosen-container {
+			width: 200px !important;
+		}
+	</style>
+
+	<body class="minwidth1080">
+		<div class="head">
+			<div class="modal fade addModal" id="addManager">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+							<h4 class="modal-title">新建</h4>
+						</div>
+						<div class="modal-body">
+							<form method="" action="" class="modal-form">
+								<p>
+									<label for="user_admin" class="title">管理员用户</label>
+									<label>
+	                                	<input type="radio" id="user_admin" name="user_type" value="admin" />
+	                                </label>
+									<label for="user_app" class="title user_type">普通用户</label>
+									<label>
+	                                	<input type="radio" id="user_app" name="user_type" value="app" checked="checked" />
+	                                </label>
+								</p>
+								<p>
+									<label for="">用户名</label>
+									<input type="text" id="username"> *
+								</p>
+								<p>
+									<label for="">邮箱</label>
+									<input type="text" id="email"> *
+								</p>
+								<p>
+									<label for="">电话</label>
+									<input type="text" id="phone"> *
+								</p>
+							</form>
+						</div>
+						<div class="modal-footer text-center">
+							<button type="button" class="btn btn-primary" onclick="addManager()">确定</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal addModal" id="addPerGroup">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+							<h4 class="modal-title">用户添加权限组</h4>
+						</div>
+						<div class="modal-body">
+							<form method="" action="" class="modal-form">
+								<input type="hidden" value id="idEnable" />
+								<p>
+									<label for="">用户名</label>
+									<input type="text" id="nameEnable" readonly="readonly" />
+								</p>
+								<p>
+									<label for="" class="title">权限组</label>
+									<select id="perGroup" name="perGroup">
+
+									</select>
+								</p>
+								<p style="color: #f00;">*权限组唯一</p>
+							</form>
+						</div>
+						<div class="modal-footer text-center">
+							<button type="button" class="btn btn-primary" onclick="addPerGroup()">确定</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal fade addModal" id="auditModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+							<h4 class="modal-title">审核</h4>
+						</div>
+						<div class="modal-body">
+							<form method="" action="" class="modal-form">
+								<input type="hidden" value id="useremail" />
+								<input type="hidden" value id="userId" />
+								<p>
+									<label for="">是否通过</label>
+									<label>
+                                    <input type="radio" name="radio" checked value="true" />通过</label>
+									<label>
+                                    <input type="radio" name="radio" value="false" />不通过</label>
+								</p>
+								<p>
+									<label for="">原因</label>
+									<textarea id="reason"></textarea>
+								</p>
+
+							</form>
+						</div>
+						<div class="modal-footer text-center">
+							<button type="button" class="btn btn-primary" onclick="auditUser()">确定</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="confirm">
+				<div class="modal-dialog modal-sm ">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+							<h4 class="modal-title">删除</h4>
+						</div>
+						<div class="modal-body">
+							<form method="" action="" class="modal-form">
+								<input type="hidden" name="" id="delId" value="" />
+								<p>
+									您确定要删除这项吗？
+
+								</p>
+
+							</form>
+						</div>
+						<div class="modal-footer text-center">
+							<button type="button" class="btn btn-primary" onclick="confirmDel()">确定</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<ol class="breadcrumb">
+				<li>
+					<a href="your/url/"><i class="icon icon-home"></i>当前位置</a>
+				</li>
+				<li>
+					<a href="your/url/">设置</a>
+				</li>
+				<li class="active">用户</li>
+			</ol>
+			<div class="row operationbar">
+				<div class="col-md-7">
+					<button class="btn btn-primary" type="button" data-moveable="true" data-toggle="modal" data-target="#addManager">新增用户</button>
+					<!--    <button class="btn" type="button" onclick="restar()">启/停用</button>
+                <button class="btn" type="button" onclick="repwd()">重置密码</button>
+                <button class="btn" type="button">删除</button>-->
+				</div>
+				<div class="col-md-5">
+					<!--<div class="input-group">
+						<span class="input-group-addon"><i class="icon-search"></i></span>
+						<input type="text" class="form-control">
+
+						<span class="input-group-btn">
+                        <button class="btn btn-default" type="button">搜索</button>
+                    </span>
+					</div>-->
+
+				</div>
+
+			</div>
+			<!--<div class="input-group" style="width: 260px;padding-left: 15px;">
+				<span class="input-group-addon"><i class="icon-search"></i></span>
+				<input type="text" class="form-control">
+				<span class="input-group-btn">
+                        <button class="btn btn-default" type="button">搜索</button>
+                </span>
+               </div>-->
+				<!--<div class="row operationbar">
+					<div class="col-md-7">					
+						<button class="btn" type="button" onclick="restar()" style="background-color: #6b80ac;color: #fff;">启/停用</button>
+						<button class="btn" type="button" onclick="repwd()">重置密码</button>
+						<button class="btn" type="button" style="background-color: #d6d6d6;">删除</button>
+					</div>
+				</div>-->
+				<div class="searchbar">
+					<label>用户信息</label>
+					<select class="form-control" id="userType">
+						<option>app</option>
+						<option>admin</option>
+					</select>
+					<label class="ml10">用户状态</label>
+					<select class="form-control" id="userStatus">
+						<option>注册</option>
+						<option>已审</option>
+						<option selected="selected">启用</option>
+						<option>停用</option>
+						<option>注销</option>
+					</select>
+					<button type="button" class="btn" id="js-searchBtn"><i class="icon icon-search"></i>查询</button>
+				</div>
+			</div>
+			<div class="main">
+				<table class="table table-striped table-bordered cardTable table-datatable datatable table-hover">
+					<thead>
+						<tr>
+							<th style="width: 80px;">序号</th>
+							<th style="width: 120px">姓名</th>
+							<th>邮箱</th>
+							<th>电话</th>
+							<th style="width: 140px">用户类型</th>
+							<th style="width: 100px">状态</th>
+							<th style="width: 120px">权限组</th>
+							<th style="width: 200px;">最后登录时间</th>
+							<th style="width: 231px;">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+					</tbody>
+
+				</table>
+			</div>
+			<div class="footer row">
+				<div class="col-md-8 leftpage">
+					<!--  <select class="form-control text-center">
+                <option>10</option>
+            </select>-->
+					<span class="ml10">总计：<span class="total">82</span>条</span>
+					<label class="ml40">显示</label>
+					<select class="form-control" id="pageSize">
+						<option value="10">10</option>
+						<option value="20">20</option>
+						<option value="50">50</option>
+						<option value="100">100</option>
+					</select>
+					<label>行</label>
+				</div>
+				<div class="text-right col-md-4">
+					<ul class="pager ">
+
+					</ul>
+					<input type="text" id="numtxt" />
+					<input type="submit" value="跳转" class="btn" id="gotopage" />
+				</div>
+			</div>
+
+	</body>
+
+</html>
+<script>
+	var page = 1,
+		pageSize = 10,
+		pagecount = 0,
+		$me = '';
+	$(function() {
+
+		getdata(page);
+		$("#js-searchBtn").click(function() {
+
+			page = 1;
+			getdata(page);
+		});
+		getAllPerGroup(); //获取全部权限
+
+	});
+	//页面大小选择
+	$("#pageSize").bind("change", function() {
+		if($(this).val() == 0) {
+			return;
+		} else {
+			pageSize = $(this).val();
+			page = 1;
+			getdata(page);
+		}
+	});
+
+	function audit(obj) {
+		$me = $(obj).parents("tr");
+		$("#auditModal #useremail").val($me.find("td").eq(1).text());
+		$("#auditModal #userId").val($me.attr("data-id"));
+		$("#auditModal").modal("show");
+	}
+	//审核员工
+	function auditUser() {
+		var email = $("#auditModal #useremail").val();
+		var userId = $("#auditModal #userId").val();
+		var pass = $("#auditModal input[type=radio]:checked").val();
+		var reason = $("#auditModal #reason").val();
+		var param = {
+			"email": email,
+			"id": userId,
+			"pass": pass,
+			"reason": reason,
+			"sessionKey": session.sessionKey,
+			"sessionId": session.sessionId
+		}
+		console.log(JSON.stringify(param));
+		$.ajax({
+
+			type: 'post',
+			url: service + "user/check_reg",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+
+				console.log(JSON.stringify(data));
+				var msg = $.zui.messager.show(data.reason, {
+					placement: 'top',
+					time: '1000'
+				});
+				$me.find("td").eq(5).html("已审核");
+				$("#auditModal").modal("hide");
+
+			},
+			error: function() {
+				alert("发生错误");
+			}
+		});
+	}
+
+	function getdata(page) {
+		var userStatus = $("#userStatus").val();
+		var userType = $("#userType").val();
+		var param = {
+			"userStatus": userStatus,
+			"userType": userType,
+			"page": page,
+			"pageSize": pageSize,
+			"sessionKey": session.sessionKey,
+			"sessionId": session.sessionId
+		}
+
+		//console.log(JSON.stringify(param));
+		$.ajax({
+
+			type: 'post',
+			url: service + "user/find",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+
+				console.log("用户数据" + JSON.stringify(data));
+				if(data.ret == 'ok') {
+					var result = data.item;
+					pagecount = Math.ceil(result.totalSize / pageSize);
+
+					_TOTAL = pagecount;
+					_NUM = result.page;
+					page = result.page;
+
+					pager(_NUM, _TOTAL);
+					var str = "";
+					if(result) {
+						if(result.resultData) {
+							for(var i = 0; i < result.resultData.length; i++) {
+								var userlist = result.resultData;
+								var powerGroup = '',
+									powerGroupId = '';
+								if(userlist[i].powerGroup) {
+									powerGroup = userlist[i].powerGroup.name;
+									powerGroupId = userlist[i].powerGroup.id;
+								}
+								if(userStatus == '注册') {
+									str += ' <tr data-id="' + userlist[i].id + '"><td>' + (i + 1) + '</td><td>' + userlist[i].username + '</td><td>' + userlist[i].email + '</td><td>' + userlist[i].phone + '</td><td>' + userlist[i].userType + '</td>' +
+										' <td>' + userlist[i].userStatus + '</td><td data-id="' + powerGroupId + '">' + powerGroup + '</td><td>' + userlist[i].lastLoginTime + '</td><td> <a href="javascript:;" onclick="audit(this)">审核 </a> </td></tr>';
+								} else if(userStatus == '启用') {
+									str += ' <tr data-id="' + userlist[i].id + '"><td>' + (i + 1) + '</td><td>' + userlist[i].username + '</td><td>' + userlist[i].email + '</td><td>' + userlist[i].phone + '</td><td>' + userlist[i].userType + '</td>' +
+										' <td>' + userlist[i].userStatus + '</td><td data-id="' + powerGroupId + '">' + powerGroup + '</td><td>' + userlist[i].lastLoginTime + '</td>' +
+										' <td> <a href="role.html?id=' + userlist[i].id + '&type=' + userlist[i].userType + '">编辑</a>' +
+										' <a href="javascript:;" onclick="delUser(\'' + userlist[i].id + '\')">删除</a>' +
+
+										' <a href="javascript:;" onclick="groupUser(this)">添加权限组</a>'
+									' </td></tr>';
+								} else {
+									str += ' <tr data-id="' + userlist[i].id + '"><td>' + (i + 1) + '</td> <td>' + userlist[i].username + '</td><td>' + userlist[i].email + '</td><td>' + userlist[i].phone + '</td><td>' + userlist[i].userType + '</td>' +
+										' <td>' + userlist[i].userStatus + '</td><td data-id="' + powerGroupId + '">' + powerGroup + '</td><td>' + userlist[i].lastLoginTime + '</td><td> </td></tr>';
+								}
+							}
+						}
+						$('table tbody').html(str);
+						$(".total").text(result.totalSize);
+					}
+				}
+
+			},
+			error: function() {
+				alert("发生错误");
+			}
+		});
+	}
+	//新增用户
+	function addManager() {
+		var userType = $("#addManager input[type='radio']:checked").val();
+		var username = $("#username").val();
+		var email = $("#email").val();
+		var phone = $("#phone").val();
+
+		if(username == null || username == '') {
+			var msg = $.zui.messager.show('用户名不能为空', {
+				placement: 'top',
+				time: '1000'
+			});
+			return;
+		}
+		if(!checkEmail(email)) {
+			var msg = $.zui.messager.show('请输入正确的邮箱', {
+				placement: 'top',
+				time: '1000'
+			});
+			return;
+		}
+		if(!checkPhone(phone)) {
+			var msg = $.zui.messager.show('请输入正确的手机号码', {
+				placement: 'top',
+				time: '1000'
+			});
+			return;
+		}
+
+		var param = {
+			"userType": userType,
+			"username": username,
+			"password": "12345678",
+			"email": email,
+			"phone": phone,
+			"sessionKey": session.sessionKey,
+			"sessionId": session.sessionId
+		}
+		console.log(JSON.stringify(param));
+
+		$.ajax({
+			type: 'post',
+			url: service + "user/add_manager",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+				console.log(JSON.stringify(data));
+				var msg = $.zui.messager.show(data.reason, {
+					placement: 'top',
+					time: '1000'
+				});
+				if(data.ret == 'ok') {
+					$('#addManager').modal('hide');
+				}
+			},
+			error: function() {
+				alert("发生错误");
+			}
+		});
+	}
+	//删除
+	function delUser(id) {
+		$('#delId').val(id);
+		$('#confirm').modal('show');
+	}
+
+	function confirmDel() {
+		var id = $('#delId').val();
+		var $tr = $('table tr[data-id=' + id + ']');
+		var param = {
+				"id": id,
+				"type": '1',
+				"sessionKey": session.sessionKey,
+				"sessionId": session.sessionId
+			}
+			//alert(JSON.stringify(param));
+
+		$.ajax({
+			type: 'post',
+			url: service + "user/delete",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+				console.log(JSON.stringify(data));
+				if(data.ret == 'ok') {
+					$('#confirm').modal('hide');
+					page = parseInt($('.pager li.active a').text());
+					getdata(page);
+				}
+				var msg = $.zui.messager.show(data.reason, {
+					placement: 'top',
+					time: '1000'
+				});
+			},
+			error: function() {
+				alert("发生错误");
+			}
+		});
+	}
+
+	/**
+	 * @param {Object} obj
+	 * 打开编辑权限组弹出框
+	 */
+	function groupUser(obj) {
+		var $parents = $(obj).parents("tr");
+
+		$("#idEnable").val($parents.attr("data-id"));
+		$("#nameEnable").val($parents.find("td").eq(1).text());
+
+		var perGroupId = $parents.find("td").eq(6).attr('data-id');
+		$('#perGroup option:selected').removeAttr('selected ');
+		$('#perGroup option[value=' + perGroupId + ']').attr('selected', 'selected');
+		$('#perGroup').trigger('chosen:updated');
+		$("#addPerGroup").modal("show");
+	}
+
+	/**
+	 * 确定设置权限组
+	 */
+	function addPerGroup() {
+		var id = $("#idEnable").val();
+		var powerGroupID = $("#perGroup").val();
+
+		var param = {
+			"id": id,
+			"powerGroupID": powerGroupID,
+			"sessionKey": session.sessionKey,
+			"sessionId": session.sessionId
+		}
+		console.log(JSON.stringify(param));
+
+		$.ajax({
+			type: 'post',
+			url: service + "user/set_power",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+				console.log(JSON.stringify(data));
+				var msg = $.zui.messager.show(data.reason, {
+					placement: 'top',
+					time: '1000'
+				});
+				if(data.ret == 'ok') {
+					$('#addPerGroup').modal('hide');
+				}
+			},
+			error: function() {
+				alert("发生错误");
+			}
+		});
+	}
+	/**
+	 * 获取全部权限组
+	 */
+	function getAllPerGroup() {
+		var param = {
+			"sessionKey": session.sessionKey,
+			"sessionId": session.sessionId
+		}
+
+		$.ajax({
+			type: 'post',
+			url: service + "power/get_all_powergroup",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+				console.log(JSON.stringify(data));
+				if(data.ret == 'ok') {
+					var item = data.item;
+					var str = '';
+					for(var i = 0; i < item.length; i++) {
+						str += '<option value="' + item[i].id + '">' + item[i].name + '</option>';
+					}
+					$("#perGroup").html(str);
+					$("#perGroup").chosen({
+						no_results_text: '没有找到',
+						search_contains: true
+					});
+				}
+
+			},
+			error: function() {
+				alert("发生错误");
+			}
+		});
+	}
+</script>

@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--[if lt IE 9]>
+     <script src="dist/lib/ieonly/html5shiv.js"></script>
+     <script src="dist/lib/ieonly/respond.js"></script>
+     <script src="dist/lib/ieonly/excanvas.js"></script>
+    <![endif]-->
+    <link href="css/zui.css" rel="stylesheet" />
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/zui.js"></script>
+    <script src="js/common.js"></script>
+    <link href="css/common.css" rel="stylesheet" />
+    <title>左侧导航-设置</title>
+</head>
+<body class="menubg">
+    <div class="aside-nav">
+        <ul class="menu" id="aside-nav">
+            <li class="">
+                <a href="attendance/chuqinrili.html" target="container" id="work" >
+                    <i class="icon icon-check-board iconLeft"></i>
+                    <b>工作台</b>  
+                </a>
+            </li>
+            <li class="">
+                <a href="attendance/chuqinrili.html" target="container" >
+                    <i class="icon icon-book iconLeft"></i>
+                    <b>信息管理</b>
+                    <i class="icon icon-chevron-up iconRight"></i>
+                </a>
+                 <ul class="submenu" >
+                    <li>
+                        <a href="#">产品管理</a>
+                        <a href="#">联系人信息维护</a>
+                        <a href="#">项目信息维护</a>  
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href="attendance/chuqinrili.html" target="container" class="">
+                    <i class="icon icon-wrench iconLeft"></i>
+                    <b>运维</b>
+                    <i class="icon icon-chevron-up iconRight"></i>
+                </a>
+                <ul class="submenu" >
+                    <li>
+                        <a href="#">在线管理</a>
+                        <a href="#">业务数据查询</a>
+                        <a href="#">操作日志查询</a>  
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href="attendance/chuqinrili.html" target="container" class="">
+                    <i class="icon icon-group iconLeft"></i>
+                    <b>现场服务</b>
+                    <i class="icon icon-chevron-up iconRight"></i>
+                </a>
+                <ul class="submenu" >
+                    <li>
+                        <a href="task-list-detail.html" target="container">任务单</a>
+                        <a href="#">返修单费用单</a>
+                        <a href="#">任务报告</a>  
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href="attendance/chuqinrili.html" target="container" class="">
+                    <i class="icon icon-link iconLeft"></i>
+                    <b>供应链</b>
+                    <i class="icon icon-chevron-up iconRight"></i>
+                </a>
+                <ul class="submenu" >
+                    <li>
+                        <a href="#">售后服务</a>
+                        <a href="#">意见反馈</a>  
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href="attendance/chuqinrili.html" target="container" class="">
+                    <i class="icon  icon-cog iconLeft"></i>
+                    <b>设置</b>
+                    <i class="icon icon-chevron-up iconRight"></i>
+                </a>
+                <ul class="submenu" >
+                    <li>
+                        <a href="#">用户和权限</a>
+                        <a href="#">基础数据维护</a>
+                        <a href="#">数据备份</a>  
+                        <a href="#">系统日志查询</a>  
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href="attendance/chuqinrili.html" target="container" class="">
+                    <i class="icon icon-inbox iconLeft"></i>
+                    <b>后台能力</b>
+                    <i class="icon icon-chevron-up iconRight"></i>
+                </a>
+                <ul class="submenu" >
+                    <li>
+                        <a href="#">数据定期备份</a>
+                        <a href="#">监控报警</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+<script>  
+  $(function () {
+    $(".aside-nav li").click(function () {
+        $(".aside-nav li a.active").removeClass("active");
+        $(this).children("a").addClass("active");
+        $(".aside-nav li ul").addClass("submenu");
+        $(this).children("ul").removeClass("submenu");
+        $(".aside-nav .iconRight").removeClass("icon-chevron-down").addClass("icon-chevron-up");
+        $(this).children("a").children(".iconRight").removeClass("icon-chevron-up").addClass("icon-chevron-down");
+        
+    });
+
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>登录</title>
+    <link href="css/zui.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/zui.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <!--[if lt IE 9]>
+     <script src="dist/lib/ieonly/html5shiv.js"></script>
+     <script src="js/respond.js"></script>
+     <script src="dist/lib/ieonly/excanvas.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+    <div class="loginMainBody">
+    	<div class="logintop">
+    		<div class="mainwidth">
+		<a href="" class="pull-left logo">
+			<img src="images/company_logo.png" />
+			<span>信息机管理平台</span>
+		</a>
+	</div>
+	<div class="loginbox">
+	 <div class="form-content" style="margin-top: 100px;">
+            <form class="loginBox">
+                <h5 class="text-center">信息机管理平台</h5>
+                <div class="control inputtxt">
+                   <!-- <i class="icon01"></i>-->
+                    <input type="text" placeholder="手机号或邮箱" id="accountInput" />
+                </div>
+                <div class="control inputtxt">
+                  <!--  <i class="icon02"></i>-->
+                    <input type="password" placeholder="密码" id="passwordInput" />
+                </div>
+                <!--<div class="tip">
+                    <span class="warning">登录帐号或密码错误
+                    </span>
+                </div>-->
+                <div class="control mt20">
+                    <a href="javascript:void(0)"  id="loginBtn" class="btn submit">登录</a>
+
+                  <!--  <input type="button" value="登录" class="submit"  /> -->
+                </div>
+                <!--   <div class="control">
+                    <p class="text-center"><a href="#" class="forgetpwd">忘记密码</a></p>
+                    <p class="text-center"><a href="#" class="regnow">马上注册</a></p>
+                </div>-->
+            </form>
+        </div>
+</div>      
+    </div>
+    	</div>
+</body>
+
+</html>
+<script type="text/javascript">
+    $(function () {
+        //  
+        var userInfo = JSON.parse(localStorage.getItem('$loginInfo') || '{"account":"","password":""}');
+
+        $('#accountInput').val(userInfo.account);
+        $('#passwordInput').val(userInfo.password);
+        $("#loginBtn").click(function () {
+            var account = $('#accountInput').val(),
+			password = $('#passwordInput').val();
+
+            var email = '',
+                phone = '';
+            if (checkPhone(account)) {
+                phone = account;
+            } else if (checkEmail(account)) {
+                email = account;
+            } else {
+                $.zui.messager.show('请输入正确的帐号', {
+                    placement: 'top',
+                    time: '1000'
+                });
+
+                return;
+            }
+
+
+            var param = {
+                email: email,
+                phone: phone,
+                password: password,
+                sessionId: session.sessionId,
+                sessionKey: session.sessionKey,
+            }
+            $.ajax({
+
+                type: 'post',
+                url: service + "user/manager_login",
+                dataType: "json",
+                data: param,
+                success: function (data) {
+                    console.log("登录数据" + JSON.stringify(data));
+                    if (data.ret == 'ok') {
+                        if (data.item) {
+                            _localize(data);
+                        }
+                        window.location.href = 'index.html';
+
+                    } else {
+                        $.zui.messager.show(data.reason, {
+                            placement: 'top',
+                            time: '1000'
+                        });
+
+
+                    }
+                },
+                error: function () {
+                    alert("发生错误");
+                }
+            });
+        })
+    })
+    function _localize(data) {
+        var account = $('#accountInput').val(),
+         password = $('#passwordInput').val();
+        var loginInfo = {
+            account: account,
+            password: password
+        };
+        var session = {
+            sessionId: data.item.sessionId,
+            sessionKey: data.item.sessionKey
+        }
+        var userInfo = data.item;
+        var sessionId = data.item.sessionId;
+        localStorage.setItem('$loginInfo', JSON.stringify(loginInfo)); //保存登录帐号
+        localStorage.setItem('$userInfo', JSON.stringify(userInfo)); //保存登录后的信息
+        localStorage.setItem('$session', JSON.stringify(session)); //保存session
+    }
+
+</script>

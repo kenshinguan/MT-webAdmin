@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>角色</title>
+		<link href="css/zui.css" rel="stylesheet" />
+		<link href="lib/datatable/zui.datatable.min.css" rel="stylesheet" />
+		<link href="css/common.css" rel="stylesheet" />
+		<link href="css/page.css" rel="stylesheet" />
+		<link href="css/chosen.css" rel="stylesheet" />
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script src="js/zui.js"></script>
+		<script src="lib/datatable/zui.datatable.min.js"></script>
+		<script src="js/common.js"></script>
+		<script src="js/chosen.js"></script>
+		<style type="text/css">
+			.chosen-container {
+				width: 300px !important;
+			}
+			
+			#addproject-power .searchbtn {
+				height: 28px;
+			}
+			
+			#addproject-power .modal-dialog {
+				width: 434px;
+			}
+			
+			#addproject-power .projectlist_style {
+				width: 286px;
+				height: 240px;
+				margin: 10px 0 0 88px;
+				overflow-y: scroll;
+				border: 1px solid #e5e5e5;
+				border-radius: 4px;
+			}
+			
+			#addproject-power .projectlist_style ul li a {
+				color: #353535;
+			}
+			
+			#addproject-power .projectlist_style ul li a.active {
+				color: #006699;
+			}
+			
+			.tab-detail {
+				width: 345px;
+				height: auto;
+			}
+			
+			.tab-detail .arealist table.table-bordered {
+				width: 345px;
+			}
+			
+			.tab-detail .arealist table tr {
+				height: 24px;
+				line-height: 24px;
+			}
+			/*.tab-detail .arealist table thead tr{
+				border-top-left-radius: 5px;
+				border-top-right-radius: 5px;
+				
+			}
+			.tab-detail .arealist table tr td:last-child{
+				border-bottom-left-radius: 5px;
+				border-bottom-right-radius: 5px;
+			}*/
+			
+			.tab-detail .arealist table tr th,
+			.tab-detail .arealist table tr td {
+				text-align: center;
+			}
+			
+			.tab-detail .arealist table.table-bordered tr td a {
+				margin-left: 0;
+				padding-top: 0;
+			}
+			
+			.tab-detail a.editPro {
+				/*width: 100px;*/
+				margin-left: 0px;
+				color: #fff;
+				text-shadow: 0 -1px 0 rgba(0, 0, 0, .2);
+				margin-bottom: 10px;
+				background-color: #2395de;
+				border-color: #399fe1;
+			}
+			
+			.tab-detail a.editPro:hover {
+				background-color: #0a67fb;
+				border-color: #0354d4;
+				box-shadow: 0 2px 1px rgba(0, 0, 0, .1);
+			}
+		</style>
+	</head>
+
+	<body class="minwidth1080">
+		<div class="head">
+			<!--新增用户弹出框-->
+			<!--<div class="modal fade addcardModal" id="addDoorModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+							<h4 class="modal-title">新建</h4>
+						</div>
+						<div class="modal-body">
+							<form method="" action="" class="modal-form">
+
+							</form>
+						</div>
+						<div class="modal-footer text-center">
+							<button type="button" class="btn btn-primary" onclick="addCard()">确定</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			-->
+			<!--修改用户所属权限组弹出框-->
+			<div class="modal addModal" id="editGroup">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+							<h4 class="modal-title">用户修改权限组</h4>
+						</div>
+						<div class="modal-body">
+							<form method="" action="" class="modal-form">
+								<input type="hidden" value id="idEnable" />
+								<p>
+									<label for="">用户名</label>
+									<input type="text" id="nameEnable" readonly="readonly" />
+								</p>
+								<p>
+									<label for="" class="title">权限组</label>
+									<select id="perGroup" name="perGroup">
+									</select>
+								</p>
+								<p style="color: #f00;">*权限组唯一</p>
+							</form>
+						</div>
+						<div class="modal-footer text-center">
+							<button type="button" class="btn btn-primary" id="editPerGroup">确定</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--运营商类型添加弹出框-->
+			<div class="modal addModal" id="addcarrylimit">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+							<h4 class="modal-title">添加运营商类型</h4>
+						</div>
+						<div class="modal-body">
+							<form method="" action="" class="modal-form">
+								<input type="hidden" value id="idEnable" />
+								<p>
+									<label for="" class="title">运营商类型</label>
+									<select class="chosen-select form-control" id="addcarry_limit" name="addcarry_limit" multiple="">
+										<option value="电信">电信</option>
+										<option value="移动">移动</option>
+										<option value="联通">联通</option>
+										<!--	<option value="不限运营商">不限运营商</option>-->
+									</select>
+								</p>
+							</form>
+						</div>
+						<div class="modal-footer text-center">
+							<button type="button" class="btn btn-primary" id="add_carry">确定</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--添加项目权限弹出框-->
+			<div class="modal addModal" id="addproject-power">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+							<h4 class="modal-title">添加项目权限</h4>
+						</div>
+						<div class="modal-body">
+							<div class="searchbar">
+								<label class="ml10">项目权限</label>
+								<input type="text" class="form-control" id="searchProject">
+								<a href="javascript:;" id="js-searchProject" class="btn btn-primary searchbtn">搜索</a>
+							</div>
+							<div class="projectlist_style">
+								<ul class="projectlist">
+									<li>
+										<a href="javascript:;" class="active">不限项目</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="modal-footer text-center">
+							<button type="button" class="btn btn-primary" id="add_projectbtn">确定</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--添加编辑区域权限弹出框-->
+			<div class="modal addModal" id="addarea-power">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+							<h4 class="modal-title">编辑区域权限</h4>
+						</div>
+						<div class="modal-body">
+							<div class="searchbar">
+								<label class="ml10">区域权限</label>
+								<select class="chosen-select form-control" id="edit_area" multiple="">
+								</select>
+							</div>
+						</div>
+
+						<div class="modal-footer text-center">
+							<button type="button" class="btn btn-primary" id="add_areabtn">确定</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<ol class="breadcrumb">
+				<li>
+					<a href="your/url/"><i class="icon icon-home"></i>当前位置</a>
+				</li>
+				<li>
+					<a href="your/url/">设置</a>
+				</li>
+				<li class="active">角色</li>
+			</ol>
+			<div class="row operationbar">
+				<div class="col-md-7">
+					<!--
+                    <button class="btn btn-primary" type="button" data-moveable="true" data-toggle="modal" data-target="#addDoorModal">新增</button>-->
+					<button class="btn btn-primary" type="button" id="edit">保存</button>
+					<!--<button class="btn" type="button" onclick="delItem()">删除</button>-->
+				</div>
+				<div class="col-md-5">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="icon-search"></i></span>
+						<input type="text" class="form-control">
+						<span class="input-group-btn">
+                        <button class="btn btn-default" type="button">搜索</button>
+                    </span>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+		<div class="main">
+			<div class="roleInfo clearfix">
+				<div class="roleInfo-cols1">
+					<ul>
+						<li>
+							<label>名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</label>
+							<input type="text" id="name" value="张三" class="name" />
+							<a href="javascript:;">重置密码</a>
+						</li>
+						<!--<li>
+							<label>登&nbsp;录&nbsp;名</label>
+							<input type="text" value="张三" id="username"/>
+						</li>-->
+						<li>
+							<label>手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机</label>
+							<input type="text" value="张三" id="phone" />
+						</li>
+						<li>
+							<label>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
+							<input type="text" value="张三" id="email" />
+						</li>
+						<!--<li>
+							<label>关联联系人</label>
+							<input type="text" value="张三" />
+						</li>-->
+
+						<li id="start-use">
+							<label>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态</label>
+							<label>
+								<input type="radio" name="status" value="启用" />启用</label>
+							<label>
+								<input type="radio" name="status" value="停用" />停用</label>
+							<label>
+								<input type="radio" name="status" value="注销" />注销</label>
+						</li>
+						<li id="user-status">
+							<label>用户类型</label>
+							<label>
+								<input type="radio" name="userstatus" value="admin" />管理员</label>
+							<label>
+								<input type="radio" name="userstatus" value="app" />普通用户</label>
+						</li>
+					</ul>
+				</div>
+				<div class="roleInfo-cols2">
+					<ul class="clearfix">
+						<li>
+							<a href="javascript:;" class="active">用户</a>
+						</li>
+						<!--<li><a href="javascript:;">菜单</a></li>-->
+						<li>
+							<a href="javascript:;">区域</a>
+						</li>
+						<!--<li><a href="javascript:;">数据权限</a></li>-->
+					</ul>
+					<p class="cols-top clearfix" style="margin-bottom: 10px;"></p>
+					<div class="tab-detail on">
+
+						<div class="clearfix">
+							<div class="tab-content">权限组</div>
+							<a href="javascript:;" id="permission-group">中科服务</a>
+						</div>
+						<!--<div class="clearfix content-space">
+							<div class="tab-content">区域限制</div>
+							<a href="javascript:;" >不限区域</a>
+						</div>-->
+						<div class="clearfix">
+							<div class="tab-content">运营商限制</div>
+
+							<a href="javascript:;" id="carrylimit">编辑</a>
+						</div>
+						<div class="clearfix">
+							<div class="tab-content">项目限制</div>
+							<a href="javascript:;" id="addproject_power">不限项目</a>
+						</div>
+					</div>
+
+					<div class="tab-detail">
+						<a href="javascript:;" class="btn btn-primary editPro">编辑</a>
+						<div class="arealist">
+							<table class="table-striped table-bordered table-datatable">
+								<thead>
+									<tr>
+										<th>所属区域</th>
+										<th>关联省份</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script>
+	var UserId = getQueryString('id');
+	var UserType = getQueryString('type');
+	$(function() {
+		show_userinfo(); /*获取用户信息*/
+		/*用户和区域的tab切换*/
+		$('.roleInfo-cols2 ul li a').click(function() {
+			var index = $('.roleInfo-cols2 ul li').index($(this).parent('li'));
+			$('.roleInfo-cols2 ul li a.active').removeClass('active');
+			$(this).addClass("active");
+			$('.tab-detail').eq(index).addClass('on').siblings('.on').removeClass('on');
+		});
+		/*编辑用户基本信息*/
+		$('#edit').click(function() {
+			edit_userinfo();
+		});
+		/*设置用户权限组*/
+		$(".tab-detail").on('click', '#permission-group', function() {
+			$('#nameEnable').val($('#name').val());
+			$('#perGroup option:selected').removeAttr('selected');
+			var selectitem = $(this).attr('data-id');
+			if(selectitem) {
+				$('#perGroup option[value="' + selectitem + '"]').attr('selected', 'selected');
+			}
+			$("#editGroup").modal("show");
+		});
+		/*点击确定按钮时，编辑用户权限组*/
+		$('#editPerGroup').click(function() {
+			edit_powergroup();
+		});
+		/*编辑用户运营商权限*/
+		$('#carrylimit').click(function() {
+			/*填入存在运营商*/
+			$('#addcarry_limit option:selected').removeAttr('selected');
+			/*打开运营商权限的时候，回填已经选中的*/
+			$(this).parent('div').find('label').each(function() {
+				var selectitem = $(this).text();
+				if(selectitem) {
+					$('#addcarry_limit option[value="' + selectitem + '"]').attr('selected', 'selected');
+				} else {
+					//$('#addcarry_limit option[value="不限运营商"]').attr('selected', 'selected');
+				}
+			});
+			$("#addcarry_limit").chosen();
+			$('#addcarrylimit').modal('show');
+		});
+		/*点击编辑运营商权限确定按钮*/
+		$('#add_carry').click(function() {
+			add_carry();;
+		});
+		/*编辑项目权限*/
+		$('#addproject_power').click(function() {
+			if(UserType != 'admin') {
+				$('#addproject-power').modal('show');
+			}
+		});
+		/*点击编辑项目详情确定按钮*/
+		$('#add_projectbtn').click(function() {
+			add_projectpower();
+		});
+		/*搜索项目*/
+		$('#js-searchProject').click(function() {
+			var key = $('#searchProject').val();
+			show_project01(key);
+		});
+		/*选中某个项目*/
+		$('.projectlist').on('click', 'a', function() {
+			$('.projectlist a.active').removeClass('active');
+			$(this).addClass('active');
+		})
+		$('#edit_area').chosen();
+		/*点击区域编辑按钮弹出弹出框*/
+		$('.tab-detail .editPro').click(function() {
+			/*填入存在区域权限*/
+			$('#edit_area option:selected').removeAttr('selected');
+			/*打开区域权限的时候，回填已经选中的*/
+			$(this).parent(' .tab-detail ').find('.arealist table tbody tr td  a').each(function() {
+				var selectitem = $(this).attr("data-id");
+				if(selectitem) {
+					$('#edit_area option[value="' + selectitem + '"]').attr('selected', 'selected');
+				} else {
+					//$('#edit_area option[value=" "]').attr('selected', 'selected');
+				}
+			});
+			$('#edit_area').trigger('chosen:updated');
+			$("#addarea-power").modal('show');
+		});
+		/*点击编辑区域权限确定按钮*/
+		$('#add_areabtn').click(function() {
+			edit_areapower();
+		});
+	});
+	/*获取用户id*/
+	function getParam() {
+		urlInfo = window.location.href; //获取当前页面的url 
+		intLen = urlInfo.length; //获取url的长度 
+		offset = urlInfo.indexOf("?"); //设置参数字符串开始的位置 
+		strKeyValue = urlInfo.substring(offset, intLen);
+		arrParam = strKeyValue.split("="); //对获得的参数字符串按照“=”进行分割 
+		strParamValue = arrParam[1]; //得到参数值 
+		return strParamValue;
+	}
+	/*查询用户基本信息*/
+	function show_userinfo() {
+		var param = {
+			sessionKey: session.sessionKey,
+			sessionId: session.sessionId,
+			id: UserId
+		}
+		$.ajax({
+			type: "post",
+			url: service + "user/get_user_info",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+				console.log("查询数据" + JSON.stringify(data));
+				if(data.ret == 'ok') {
+					$('#name').val(data.item.username);
+					$('#phone').val(data.item.phone);
+					$('#email').val(data.item.email);
+					if(data.item.userStatus == '启用') {
+						$("#start-use input[type=radio]").eq(0).prop('checked', true);
+					} else if(data.item.userStatus == '停用') {
+						$("#start-use input[type=radio]").eq(1).prop('checked', true);
+					} else if(data.item.userStatus == '注销') {
+						$("#start-use input[type=radio]").eq(2).prop('checked', true);
+					}
+					if(data.item.powerGroup) {
+						$('#permission-group').text(data.item.powerGroup.name);
+						$('#permission-group').attr('data-id', data.item.powerGroup.id);
+					} else {
+						$('#permission-group').text('请添加');
+					}
+					if(data.item.userType == 'admin') {
+						$("#user-status input[type=radio]").eq(0).prop('checked', true);
+					} else if(data.item.userType == 'app') {
+						$("#user-status input[type=radio]").eq(1).prop('checked', true);
+					}
+					UserType = data.item.userType;
+					if(UserType == 'admin') {
+						$('.editPro').hide();
+						$('.tab-detail .arealist table').hide();
+						$('#carrylimit').hide();
+					}
+					show_powergroup(); /*获取所有权限组*/
+					show_carry(); /*获取用户运营商权限*/
+					show_projectpower(); /*获取所有项目*/
+					show_areapower(); /*获取区域权限*/
+				}
+			},
+			error: function() {
+				alert("发生错误");
+			}
+		});
+	}
+	/*编辑用户基本信息*/
+	function edit_userinfo() {
+		var phone = $('#phone').val();
+		var username = $('#name').val();
+		var email = $('#email').val();
+		var userStatus = '';
+		userStatus = $('#start-use input[type=radio]:checked').val();
+		var userType = '';
+		userType = $('#user-status input[type=radio]:checked').val();
+		var param = {
+			sessionKey: session.sessionKey,
+			sessionId: session.sessionId,
+			id: UserId,
+			phone: phone,
+			username: username,
+			email: email,
+			userStatus: userStatus,
+			userType: userType
+		}
+		console.log(JSON.stringify(param));
+		$.ajax({
+			type: "post",
+			url: service + "user/modify",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+				console.log("修改用户数据" + JSON.stringify(data));
+				//TODO 成功以后刷新页面
+				window.location.reload();
+			},
+			error: function() {
+				alert("发生错误");
+			}
+		});
+	}
+	/**
+	 * 调用权限组接口,获取权限组
+	 */
+	function show_powergroup() {
+		var param = {
+			sessionKey: session.sessionKey,
+			sessionId: session.sessionId,
+		}
+		$.ajax({
+			type: "post",
+			url: service + "power/get_all_powergroup",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+				console.log("显示数据" + JSON.stringify(data));
+				var str = '';
+				for(var i = 0; i < data.item.length; i++) {
+					str += '<option value="' + data.item[i].id + '" >' + data.item[i].name + '</option>';
+				}
+				$(".modal-form #perGroup").html(str);
+			},
+			error: function() {
+				alert("发生错误");
+			}
+		});
+	}
+	/**
+	 * 编辑用户所属权限组
+	 */
+	function edit_powergroup() {
+		var perGroup = $('#perGroup').val();
+		if(UserId == '' || perGroup == '') {
+			return false;
+		}
+		var param = {
+			sessionKey: session.sessionKey,
+			sessionId: session.sessionId,
+			id: UserId,
+			powerGroupID: perGroup
+		}
+		$.ajax({
+			type: "post",
+			url: service + "user/set_power",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+				console.log("修改用户所属权限组数据" + JSON.stringify(data));
+				$("#editGroup").modal("hide");
+				window.location.reload();
+			},
+			error: function() {
+				alert("发生错误");
+			}
+		});
+	}
+	/*
+	 * 运营商权限获取
+	 */
+	function show_carry() {
+		var param = {
+				sessionKey: session.sessionKey,
+				sessionId: session.sessionId,
+				userId: UserId
+			}
+			//console.log(JSON.stringify(param));
+		$.ajax({
+			type: "post",
+			url: service + "link_user_operator/find",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+				console.log("显示运营商权限数据" + JSON.stringify(data));
+				var str = '';
+				for(var i = 0; i < data.item.length; i++) {
+					str += '<label  data-id=' + data.item[i].userId + ' style="margin-bottom: 0px;padding-top: 10px;">' + data.item[i].operator + '</label>';
+				}
+				$('.tab-detail #carrylimit').before(str);
+			},
+			error: function() {
+				alert("发生错误!");
+			}
+		});
+	}
+	/*编辑用户运营商权限*/
+	function add_carry() {
+		var operators = '';
+		if($('#addcarry_limit').val()) {
+			operators = JSON.stringify($('#addcarry_limit').val());
+		}
+		var param = {
+				sessionKey: session.sessionKey,
+				sessionId: session.sessionId,
+				userId: UserId,
+				operators: operators
+			}
+			//alert("显示添加运营商权限参数" + JSON.stringify(param));
+		$.ajax({
+			type: "post",
+			url: service + "link_user_operator/save",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+				console.log("添加运营商" + JSON.stringify(data));
+				$('#addcarrylimit').modal('hide');
+				window.location.reload();
+			},
+			error: function() {
+				alert("发生错误!");
+			}
+		});
+	}
+	/*
+	 * 获取用户项目权限
+	 */
+	function getQueryString(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if(r != null) return unescape(r[2]);
+		return null;
+	}
+
+	function show_projectpower() {
+		//var userId = getParam();
+		//alert(adminId);
+		var param = {
+			sessionKey: session.sessionKey,
+			sessionId: session.sessionId,
+			userId: UserId
+		}
+		$.ajax({
+			type: "post",
+			url: service + "link_user_project/find",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+				console.log("显示项目权限" + JSON.stringify(data));
+				if(data.item) {
+					for(var i = 0; i < data.item.length; i++) {
+						if(data.item[i]) {
+							$('#addproject_power').text(data.item[i].projectName);
+							$('#addproject_power').attr("data-id", data.item[i].id);
+						}
+					}
+				}
+			},
+			error: function() {
+				alert("发生错误!");
+			}
+		});
+	}
+	/*
+	 * 查询所有项目
+	 */
+	function show_project01(projectKey) {
+		var $userInfo = localStorage.getItem('$userInfo');
+		if($userInfo) {
+			var adminId = JSON.parse($userInfo).id;
+		}
+		var param = {
+				page: 0,
+				pagesize: 0,
+				key: projectKey,
+				sessionId: session.sessionId,
+				sessionKey: session.sessionKey,
+				userId: adminId
+			}
+			//alert(JSON.stringify(param));
+		$.ajax({
+			type: "post",
+			url: service + "project/search",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+				console.log('显示项目的数据' + JSON.stringify(data));
+				if(data.ret == 'ok') {
+					if(data.item) {
+						var str = '<li><a href="javascrip:;" data-id="" class="active">不限项目</a></li>';
+						for(var i = 0; i < data.item.length; i++) {
+							str += '<li><a href="javascrip:;" data-id="' + data.item[i].id + '">' + data.item[i].projectName + '</a></li>'
+						}
+						$('.projectlist').html(str);
+					}
+				}
+			},
+			error: function() {
+				alert("发生错误!");
+			}
+		});
+	}
+	/*
+	 * 编辑项目权限
+	 */
+	function add_projectpower() {
+		var projectId = $('.projectlist a.active').attr('data-id');
+		var param = {
+			sessionKey: session.sessionKey,
+			sessionId: session.sessionId,
+			userId: UserId,
+			projectId: projectId
+		}
+		console.log("显示修改参数" + JSON.stringify(param));
+		$.ajax({
+			type: "post",
+			url: service + "link_user_project/save",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+				console.log("添加项目权限" + JSON.stringify(data));
+				$('#addproject-power').modal('hide');
+				window.location.reload();
+			},
+			error: function() {
+				alert("发生错误!");
+			}
+		});
+	}
+	/*
+	 *获取区域权限
+	 */
+	function show_areapower() {
+		var param = {
+			sessionKey: session.sessionKey,
+			sessionId: session.sessionId,
+			userId: UserId
+		}
+		$.ajax({
+			type: "post",
+			url: service + "link_user_province/find",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+				console.log("显示区域权限数据" + JSON.stringify(data));
+				if(data.ret == 'ok') {
+					var html = '';
+					for(var i = 0; i < data.item.length; i++) {
+						if(data.item[i]) {
+							var baseProvince = "";
+							if(data.item[i].baseProvince) {
+								for(var j = 0; j < data.item[i].baseProvince.length; j++) {
+									if(data.item[i].baseProvince[j]) {
+										baseProvince += '<a href="javascript:;" data-id="' + data.item[i].baseProvince[j].id + '">' + data.item[i].baseProvince[j].name + '</a>';
+									}
+								}
+								html += '<tr data-id="' + data.item[i].id + '"><td>' + data.item[i].name + '</td><td>' + baseProvince + '</td></tr>'
+							} else {
+								html += '<tr data-id="' + data.item[i].id + '" class="hidden"><td>' + data.item[i].name + '</td><td></td></tr>'
+							}
+						} else {
+							html += '<tr><td>不限区域 </td></tr>';
+						}
+					}
+					$('.arealist table tbody').html(html);
+					$('.arealist table tbody tr').each(function() {
+						var areaId = $(this).attr('data-id');
+						var name = $(this).find('td').eq(0).text();
+						show_relative_area(areaId, name);
+					});
+				}
+			},
+			error: function() {
+				alert("发生错误");
+			}
+		});
+	}
+	/*获取区域已关联的省*/
+	function show_relative_area(areaId, Name) {
+		var param = {
+				sessionId: session.sessionId,
+				sessionKey: session.sessionKey,
+				areaId: areaId
+			}
+			//alert("显示区域已关联的省参数"+JSON.stringify(param));
+		$.ajax({
+			type: "post",
+			url: service + "area/get_link_province",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+				console.log("显示区域已关联的省" + JSON.stringify(data));
+				if(data.ret == 'ok') {
+					var result = data.item;
+					if(result) {
+						var str = '';
+						str += ' <optgroup label="' + Name + '">';
+						for(var i = 0; i < result.length; i++) {
+							str += '<option value="' + result[i].id + '">' + result[i].name + '</option>'
+						}
+						str += ' </optgroup>';
+					}
+					$('#edit_area').append(str);
+					$('#edit_area').trigger('chosen:updated');
+				};
+			}
+		});
+	}
+	/*编辑区域权限*/
+	function edit_areapower() {
+		var provinceIds = JSON.stringify($('#edit_area').val());
+		var param = {
+			sessionKey: session.sessionKey,
+			sessionId: session.sessionId,
+			userId: UserId,
+			provinceIds: provinceIds
+		}
+		console.log("显示修改区域权限参数" + JSON.stringify(param));
+		$.ajax({
+			type: "post",
+			url: service + "link_user_province/save",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+				console.log("修改区域权限数据" + JSON.stringify(data));
+				$('#addarea-power').modal('hide');
+				window.location.reload();
+			},
+			error: function() {
+				alert("发生错误");
+			}
+		});
+	}
+</script>

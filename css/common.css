@@ -1,0 +1,1576 @@
+/*基础样式*/
+
+
+/*zhanging upload 2016-03-26*/
+
+body {
+	/*fixed by Skipjack,只定义微软雅黑为默认字体会导致漂浮消息关闭按钮显示错位*/
+	font-family: "Helvetica Neue", Helvetica, Tahoma, Arial, 'Microsoft Yahei', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', sans-serif;
+	background: #fff;
+}
+
+ul,
+li {
+	list-style: none;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a,
+input,
+select {
+	outline: none;
+	background: none;
+}
+
+input[type=text] {
+	background: #fff;
+}
+
+.bgf3 {
+	background: #f3fbfd;
+}
+
+.table> thead> tr> th {
+	vertical-align: middle;
+}
+
+.ml10 {
+	margin-left: 10px;
+}
+
+.ml20 {
+	margin-left: 20px;
+}
+
+.ml25 {
+	margin-left: 25px;
+}
+
+.ml30 {
+	margin-left: 30px;
+}
+
+.ml40 {
+	margin-left: 40px;
+}
+
+.mr100 {
+	margin-right: 100px;
+}
+
+.mr5 {
+	margin-right: 5px !important;
+}
+
+.mt20 {
+	margin-top: 20px;
+}
+
+.mt10 {
+	margin-top: 10px;
+}
+
+.mb10 {
+	margin-bottom: 10px;
+}
+
+.pt10 {
+	padding-top: 10px;
+}
+
+.pb10 {
+	padding-bottom: 10px;
+}
+
+.ft16 {
+	font-size: 16px;
+}
+
+.ft18 {
+	font-size: 18px;
+}
+
+.ft12 {
+	font-size: 12px;
+}
+
+.ft14 {
+	font-size: 14px;
+}
+
+.ft000 {
+	color: #000;
+}
+
+.ft666 {
+	color: #666;
+}
+
+.ftblue {
+	color: #0594e8;
+}
+
+.ftgreen {
+	color: #0f890c;
+}
+
+.ft71 {
+	color: #7d7aaf;
+}
+
+.ft-bold {
+	font-weight: bold;
+}
+
+.ft91 {
+	color: #919191;
+}
+
+::-webkit-scrollbar-thumb,
+input,
+select {
+	box-shadow: none !important;
+}
+
+@font-face {
+	font-family: "iconfont";
+	src: url('../fonts/iconfont.eot?t=1458981941');
+	/* IE9*/
+	src: url('../fonts/iconfont.eot?t=1458981941#iefix') format('embedded-opentype'), /* IE6-IE8 */
+	url('../fonts/iconfont.woff?t=1458981941') format('woff'), /* chrome, firefox */
+	url('../fonts/iconfont.ttf?t=1458981941') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+	url('../fonts/iconfont.svg?t=1458981941#iconfont') format('svg');
+	/* iOS 4.1- */
+}
+
+.iconfont {
+	font-family: "iconfont" !important;
+	font-size: 16px;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-stroke-width: 0.2px;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+
+/*日历*/
+
+.icon-rili:before {
+	content: "\e600";
+}
+
+
+/*查询和统计*/
+
+.icon-tongji:before {
+	content: "\e601";
+}
+
+
+/*系统权限设置*/
+
+.icon-quanxian:before {
+	content: "\e602";
+}
+
+
+/*员工数据管理*/
+
+.icon-bumenchengyuan:before {
+	content: "\e603";
+}
+
+
+/*个人信息*/
+
+.icon-geren:before {
+	content: "\e604";
+}
+
+
+/*人事参数设置*/
+
+.icon-ordinaryxiangxi:before {
+	content: "\e605";
+}
+
+
+/*出勤参数设置*/
+
+.icon-signSet:before {
+	content: "\e606";
+}
+
+
+/*个人中心*/
+
+.icon-user:before {
+	content: "\e614";
+}
+
+
+/*数据补录*/
+
+.icon-luru:before {
+	content: "\e607";
+}
+
+
+/*组织架构*/
+
+.icon-zuzhijiagou:before {
+	content: "\e608";
+}
+
+
+/*门禁设备管理*/
+
+.icon-shebeiguanli:before {
+	content: "\e609";
+}
+
+
+/*出勤流程*/
+
+.icon-procedures:before {
+	content: "\e60a";
+}
+
+
+/*人员异动日志*/
+
+.icon-gongzuorizhi:before {
+	content: "\e60b";
+}
+
+
+/*员工信息管理*/
+
+.icon-renyuantongji:before {
+	content: "\e60c";
+}
+
+
+/*本班成员*/
+
+.icon-benbanchengyuan:before {
+	content: "\e60d";
+}
+
+
+/*工卡管理*/
+
+.icon-card:before {
+	content: "\e60e";
+}
+
+.icon-wodetuandui:before {
+	content: "\e60f";
+}
+
+
+/*HR*/
+
+.icon-hr:before {
+	content: "\e610";
+}
+
+
+/*系统参数*/
+
+.icon-system:before {
+	content: "\e611";
+}
+
+
+/*登录用户管理*/
+
+.icon-lgoinuser:before {
+	content: "\e612";
+}
+
+
+/*公司信息*/
+
+.icon-company:before {
+	content: "\e613";
+}
+
+
+/*消息*/
+
+.icon-xiaoxi:before {
+	content: "\e615";
+}
+
+
+/*对号*/
+
+.icon-right:before {
+	content: "\e61b";
+}
+
+
+/*请假管理*/
+
+.icon-leave:before {
+	content: "\e616";
+}
+
+
+/*加班管理*/
+
+.icon-leave:before {
+	content: "\e617";
+}
+
+
+/*出差申请*/
+
+.icon-trip:before {
+	content: "\e619";
+	display: inline-block;
+	vertical-align: -.2ex;
+}
+
+
+/*报销管理*/
+
+.icon-expense:before {
+	content: "\e618";
+}
+
+
+/*考勤异常管理*/
+
+.icon-abnormal:before {
+	content: "\e61a";
+}
+
+.t-waiting {
+	color: #e89505;
+}
+
+.t-warning {
+	color: #e82005;
+}
+
+.t-pass {
+	color: #10d223;
+}
+
+.jiange70 {
+	height: 70px;
+}
+
+.btn+ .btn {
+	margin-left: 10px;
+}
+
+
+/*给btn设置最小宽度*/
+
+.btn {
+	min-width: 80px;
+}
+
+
+/*=============index顶部条（开始）===================*/
+
+.header {
+	position: relative;
+	z-index: 999;
+	min-width: 640px;
+	background: #fff;
+	background-size: auto;
+	height: 70px;
+}
+
+.header ul.nav {
+	/*margin-top: 46px;*/
+	margin-left: 40px;
+	border-left: 1px solid #ededed;
+}
+
+.header ul.nav li {
+	/*color: #FFF;*/
+	float: left;
+	min-width: 80px;
+	text-align: center;
+}
+
+.header .nav li:first-child a {
+	/*border-radius: 5px 0 0 0;*/
+}
+
+.header .nav li:last-child a {
+	/*border-radius: 0 5px 0 0;*/
+}
+
+.header .nav li:only-of-type a {
+	/*border-radius: 5px 5px 0 0;*/
+}
+
+.header ul.nav li+ li {
+	/*border-left: 1px solid #388ac2;*/
+}
+
+.header ul.nav li a {
+	line-height: 60px;
+	/*color: inherit;*/
+	/*font-size: 14px;*/
+	font-size: 16px;
+	color: #767676;
+	/*background: #216dab;*/
+	width: 100px;
+}
+
+.header ul.nav li a:hover{
+	background: none;
+}
+.header ul.nav li a.active {
+	border-bottom: 4px solid #226b9a;
+	background:none ;
+	/*background: #378dd3;*/
+}
+
+.header {
+	position: absolute;
+	z-index: 1;
+	width: 100%;
+	height: 80px;
+	top: 0;
+	box-shadow: 10px 1px 10px #bbb;
+}
+
+.header .dropdown> a {
+	display: block;
+	height: 36px;
+	line-height: 36px;
+}
+
+.header .user {
+	margin-right: 10px;
+	margin-top: 24px;
+	position: fixed;
+	right: 0;
+	top: 0;
+}
+
+.header .user .dropdown-toggle {
+	display: block;
+	width: 80px;
+	text-align: center;
+}
+
+.header .dropdown> a i {
+	display: inline-block;
+	vertical-align: middle;
+	margin-top: -3px;
+}
+
+.header .dropdown> a i.arrow {
+	height: 10px;
+	width: 20px;
+	color: #747474;
+}
+
+.header .dropdown .dropdown-menu {
+	right: 20px;
+	min-width: 100px;
+}
+
+.header .userName {
+	color: #747474;
+	font-weight: bold;
+	text-shadow: 0px 0px 3px rgba(255, 255, 255, 1);
+}
+
+.header .user .dropdown-toggle {
+	display: inline-block;
+}
+
+.logo {
+	display: inline-block;
+	width: 100px;
+	height: 70px;
+	margin-left: 50px;
+}
+
+.logo img {
+	margin-top: 5px;
+	width: 70px;
+	height: 70px;
+	line-height: 70px;
+}
+
+.header p {
+	display: none;
+	height: 70px;
+	line-height: 70px;
+	font-size: 20px;
+	color: #747474;
+}
+
+
+/*@media screen and (max-width:1330px) {
+    .header .userName {
+        display: none;
+    }
+}
+
+@media screen and (max-width:800px) {
+    .header ul.nav {
+        margin-left: 190px;
+    }
+}*/
+
+.content.row {
+	position: fixed;
+	top: 80px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	overflow: hidden;
+	padding: 0;
+	max-width: none;
+}
+
+.content.row> div.mainbox,
+.content.row> div.submenu {
+	float: left;
+	height: 100%;
+}
+
+.content.row> div.submenu {
+	width: 191px;
+	margin-left: -100%;
+}
+
+.content.row> div.mainbox {
+	width: 100%;
+	height: 100%;
+}
+
+.content.row> div.mainbox .wrap {
+	margin-left: 192px;
+	height: 100%;
+}
+
+.content.row iframe {
+	border: none;
+	height: 100%;
+	width: 100%;
+}
+
+
+/*=============左侧导航条（开始）===================*/
+
+.menubg {
+	background: #216dab;
+}
+
+.menubg a {
+	color: #5b9bc5;
+	position: relative;
+}
+.menubg a.active{
+	color: #fff;
+}
+.menubg .menu li,
+.menubg .menu {
+	padding: 0;
+}
+
+.menubg a#work {
+	color: #FFF;
+	height: 38px;
+	line-height: 38px;
+}
+
+.menubg .menu li h5 {
+	color: #fefefe;
+	padding-left: 20px;
+}
+
+.menubg .menu li> a {
+	height: 29px;
+	line-height: 29px;
+	text-decoration: none;
+	font-size: 12px;
+	display: block;
+	padding-left: 20px;
+}
+
+.menubg .menu li> a:hover,
+.menubg .menu li> a.active {
+	background: #125f90;
+}
+
+.menubg .menu li.active {
+	background: #125f90;
+}
+
+.menubg .menu .iconLeft {
+	margin-right: 10px;
+}
+
+.menubg .menu .iconRight {
+	position: absolute;
+	margin-right: 10px;
+	right: 10px;
+	top: 8px;
+}
+
+.menubg .menu li ul {
+	margin-left: 10px;
+}
+
+.menubg .menu .submenu {
+	display: none;
+}
+
+
+/*=============左侧导航条（结束）===================*/
+
+
+/*右侧最小宽带*/
+
+.minwidth1080 {
+	background: #f3fbfd;
+	min-width: 1080px;
+	overflow: auto;
+}
+
+
+/*帮助*/
+
+.questions {
+	background: #fff;
+	margin: 10px 10px 10px 0;
+	box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+	padding: 15px;
+	display: none;
+}
+
+.questions dl {
+	border-bottom: 1px dashed #ddd;
+	padding: 10px;
+}
+
+.questions a {
+	color: #0594e8;
+	font-size: 16px;
+}
+
+.questions dt {
+	margin-bottom: 20px;
+}
+
+.questions dd {
+	color: #999;
+	font-size: 14px;
+	display: none;
+}
+
+.searchbar,
+.main {
+	margin: 10px 20px 10px 10px;
+	/*padding: 0 10px;*/
+}
+
+.row.operationbar {
+	margin: 10px 10px 10px 0;
+}
+
+.searchbar input,
+.searchbar select {
+	display: inline-block;
+	width: 140px;
+}
+
+.searchbar input.form-control[readonly] {
+	cursor: pointer;
+}
+
+.operationbar button,
+.searchbar button,
+.operationbar input[type=submit] {
+	min-width: 80px;
+}
+
+.operationbar button:nth-child(1) {
+	margin-left: 0;
+}
+
+.operationbar button.active {
+	color: #fff;
+	background: #358ee2;
+	border: 1px solid #358ee2;
+	text-shadow: none;
+}
+
+.operationbar .input-group-addon {
+	background: #fff;
+	border-right: none;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+.operationbar .input-group-addon+ input[type=text] {
+	border-left: none;
+	border-right: none;
+}
+
+.operationbar .input-group-addon+ input[type=text]:focus {
+	border: 1px solid #ccc;
+	border-left: none;
+	border-right: none;
+}
+
+.input-remove {
+	border-left: none;
+}
+
+.cardTable {
+	background: #fff;
+}
+
+.cardTable label {
+	margin-bottom: 0;
+}
+
+.cardTable a {
+	color: #296bbd;
+}
+
+.cardTable a.editBtn,
+.cardTable a.delBtn {
+	margin: 0 10px;
+}
+
+.cardTable tr td,
+.cardTable tr th {
+	vertical-align: middle;
+	text-align: center;
+}
+
+.cardTable thead tr th:first-child {
+	width: 50px;
+}
+
+.sortTable tr {
+	cursor: pointer;
+}
+
+.sortTable a.icon {
+	text-decoration: none;
+}
+
+.cardTable a.state {
+	height: 20px;
+	width: 20px;
+	background: #6cc4f7;
+	border-radius: 3px;
+	display: block;
+	color: #fff;
+	text-align: center;
+	line-height: 20px;
+	text-decoration: none;
+}
+
+::-webkit-scrollbar-thumb,
+input,
+select {
+	box-shadow: none !important;
+	outline: none;
+}
+
+.cardTable tr th:first-child,
+.cardTable tr td:first-child {
+	text-align: center;
+}
+
+
+/*分页*/
+
+.leftpage {
+	padding: 0;
+	color: #666;
+}
+
+.leftpage .form-control {
+	display: inline-block;
+	width: 60px;
+	margin-left: 10px;
+}
+
+.pager {
+	margin: 0;
+	vertical-align: middle;
+}
+
+.pager~ input[type=button] {
+	margin-right: 10px;
+}
+
+.pager> .active> a,
+.pager> .active> span,
+.pager> .active> a:hover,
+.pager> .active> span:hover {
+	border: 1px solid #1f74c5;
+	background: #1f74c5;
+}
+
+.pager li a {
+	margin: 0 5px;
+	color: #666;
+}
+
+.pager li a:last-child {
+	margin-right: 0;
+}
+
+#numtxt {
+	height: 32px;
+	width: 50px;
+	border: 1px solid #ddd;
+	vertical-align: middle;
+	text-indent: 5px;
+}
+
+.open .dropdown-menu {
+	display: block;
+}
+
+.row {
+	margin: 0;
+}
+
+
+/*=================登录页面=================*/
+
+.loginMainBody {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	/*background: url(../images/loginMainBG.jpg) no-repeat center top;*/
+	
+}
+.mainwidth{
+	width: 1160px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.loginMainBody .logintop {
+	height: 100px;
+	background: #fff;
+	border-bottom: 2px solid #3477c7;
+	/*line-height: 100px;*/
+}
+.loginMainBody .logintop a{
+	text-decoration: none;
+	height: 100px;
+	line-height: 100px;
+}
+.logintop .logo {
+	display: block;
+	width: 100%;
+	vertical-align: middle;
+	font-size: 16px;
+	height: 78px;
+	color: #919191;
+}
+
+.logintop .logo img {
+	display: inline-block;
+    height: 70px;
+}
+
+.logintop .logo span {
+	margin-left: 35px;
+}
+
+.loginbox {
+	width: 400px;
+	margin: 0 auto;
+	padding-top: 100px;
+}
+
+.loginbox h5 {
+	text-align: center;
+	color: #a9a9a9;
+	font-size: 26px;
+	margin-top: 100px;
+	margin-bottom: 20px;
+}
+
+/*.loginbox .loginrole {
+	font-size: 0;
+	-webkit-text-size-adjust: none;
+}
+
+.loginbox .loginrole label {
+	display: inline-block;
+	width: 50%;
+	font-size: 12px;
+	color: #acacac;
+	line-height: 30px;
+	cursor: pointer;
+}
+
+.loginbox .loginrole label i {
+	display: block;
+	height: 58px;
+	width: 58px;
+	margin: 0 auto;
+}
+.loginbox .loginrole  input[type=radio]{
+	display: none;
+}
+.loginbox .loginrole label i.empicon {
+	background: url(../images/employees.png) no-repeat center center;
+}
+
+.loginbox .loginrole label.active i.empicon {
+	background: url(../images/employeesActive.png) no-repeat center center;
+}
+.loginbox .loginrole label i.adminicon {
+	background: url(../images/admin.png) no-repeat center center;
+}
+
+.loginbox .loginrole label.active i.adminicon {
+	background: url(../images/adminActive.png) no-repeat center center;
+}
+
+.loginbox .loginrole label img {
+	display: block;
+}
+
+.loginbox .loginrole label p {
+	text-align: center;
+}*/
+.loginbox .control a.btn{
+	width: 400px;
+	background: #3477c7;
+    color: #fff;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    border: none;
+    border-radius: 5px;
+    vertical-align: middle;
+}
+.loginbox .control a.btn:hover{
+	color: #fff;
+	background: #1758a7;
+}
+.loginbox input[type=text],
+.loginbox input[type=password],
+.loginbox input[type=submit],
+.loginbox button {
+	display: block;
+	width: 100%;
+}
+
+.loginbox input[type=text],
+.loginbox input[type=password] {
+	height: 40px;
+	background: #fff;
+	border: 1px solid #dcdcdc;
+	border-radius: 5px;
+	text-indent: 15px;
+	margin-top: 15px;
+	color: #777;
+}
+
+.loginbox input[type=submit],
+.loginbox button {
+	background: #3477c7;
+	color: #fff;
+	text-align: center;
+	height: 50px;
+	border: none;
+	border-radius: 5px;
+	margin-top: 25px;
+}
+.loginbox input[type=submit]:hover,
+.loginbox button:hover{
+	background: #1758a7;
+	color:#fff
+	
+}
+.loginbox label input[type=checkbox],
+.loginbox label span {
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 30px;
+	margin-top: 0;
+}
+
+.loginbox label {
+	color: #a2a2a2;
+}
+
+.loginbox .linkbox {
+	margin: 26px 10px 0;
+}
+
+.loginbox .linkbox label {
+	color: #3477c7;
+	font-weight: normal;
+}
+
+.loginbox  a {
+	color: #3477c7;
+}
+.loginbox  a:hover{
+	color: #ff6000;
+}
+/*改动*/
+/*.form-content {
+	padding-top: 160px;
+	width: 100%;	
+    
+}
+
+.form-content .form-title {
+	color: #70B3D6;
+	margin: 20px 0;
+	font-size: 22px;
+}
+
+.loginBox {
+	padding: 25px 0px 0px 0px;
+	width: 310px;
+	margin: 0 auto;
+	background-color: #30658F;
+	border: 2px solid #70B3D6;
+	border-radius: 10px;
+}
+
+.loginBox> div {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.loginBox .control {
+	margin: 10px 45px;
+}
+
+.loginBox .control.inputtxt {
+	height: 40px;
+	width: 220px;
+	border: 2px solid #3D729A;
+	border-radius: 4px;
+}
+
+.loginBox .control i {
+	height: 40px;
+	width: 40px;
+	display: inline-block;
+}
+
+.loginBox .control i.icon01 {
+	background: url(../images/login.png) left center no-repeat;
+}
+
+.loginBox .control i.icon02 {
+	background: url(../images/login.png) right center no-repeat;
+}
+
+.loginBox .control input[type=text],
+.loginBox .control input[type=password] {
+	height: 36px;
+	vertical-align: top;
+	border: none;
+	width: 160px;
+	text-indent: 10px;
+	line-height: 36px;
+	color: white;
+	background: #30658F;
+}
+
+.loginBox .tip {
+	height: 12px;
+}
+
+.loginBox .tip span {
+	display: none;
+}
+
+.loginBox .control a.forgetpwd,
+a.regnow {
+	color: #84A4BE;
+	text-decoration: none;
+	font-size: 14px;
+}
+
+.loginBox .control p {
+	display: inline-block;
+}
+
+.loginBox .control p:first-child {
+	margin-right: 80px;
+}*/
+
+
+/*.loginBox .control .forgetpwd::after {
+    content: ">";
+    vertical-align: 1px;
+    margin-left: 2px;
+}*/
+/*改动*/
+/*.loginBox .control .submit {
+	color: #fff;
+	font-size: 16px;
+	text-align: center;
+	height: 30px;
+	line-height: 30px;
+	text-decoration: none;
+	display: block;
+	border: none;
+	background: #2E95E0;
+	border-radius: 6px;
+	width: 220px;
+	cursor: pointer;
+	margin: 0 auto;
+}
+
+.form-content .tag {
+	text-align: center;
+	line-height: 30px;
+	color: #c2c2c2;
+	margin-top: 30px;
+}*/
+
+
+/*=============顶部面包屑导航样式修正==============*/
+
+.head .breadcrumb {
+	margin-bottom: -10px;
+}
+
+
+/*圣杯布局*/
+
+.cols-wrap {
+	padding-left: 210px;
+	zoom: 1;
+	overflow: hidden;
+}
+
+.cols-wrap .cols-main {
+	float: left;
+}
+
+.cols-wrap .cols-aside {
+	float: left;
+	width: 200px;
+	margin-left: -100%;
+	position: relative;
+	left: -210px;
+}
+
+
+/*分类列表*/
+
+.cols-aside.submenu .hd {
+	height: 40px;
+	line-height: 40px;
+	border: 1px solid #ccc;
+	background: #fff;
+	text-indent: 10px;
+}
+
+.cols-aside.submenu ul {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+.cols-aside.submenu ul ul li a span{
+	visibility: hidden;
+}
+.cols-aside.submenu ul ul li a:hover span{
+	visibility: visible;
+}
+.cols-aside.submenu .bd a {
+	display: block;
+	height: 36px;
+	line-height: 36px;
+	border-bottom: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	background: #fff;
+	width: 100%;
+	color: #999;
+	font-size: 14px;
+	text-decoration: none;
+}
+
+.cols-aside.submenu .bd a i {
+	display: inline-block;
+	height: 16px;
+	width: 16px;
+	border-radius: 3px;
+	background: #8fc31f;
+	vertical-align: middle;
+	margin-right: 10px;
+	color: #fff;
+	font-size: 16px;
+	text-align: center;
+	line-height: 16px;
+	text-indent: 0;
+}
+
+.cols-aside.submenu .bd a i:before {
+	content: '+';
+}
+
+.cols-aside.submenu .bd> li> a {
+	font-weight: bold;
+	text-indent: 10px;
+}
+
+.cols-aside.submenu .bd ul li a {
+	text-indent: 40px;
+	overflow: hidden;
+}
+
+.submenu .bd ul li a:hover,
+.submenu .bd ul li a.active {
+	color: #00a0e9;
+}
+
+.cols-aside.submenu .bd li.open ul {
+	display: block;
+}
+
+.cols-aside.submenu .bd li.open a i {
+	background: #eb6100;
+}
+
+.cols-aside.submenu .bd li.open a i:before {
+	content: '-';
+}
+
+.cols-aside.submenu .bd ul {
+	display: none;
+}
+
+
+/*区域*/
+
+.arealist dl:first-child {
+	border-top: 1px solid #ccc;
+}
+
+.arealist dl {
+	border: 1px solid #ccc;
+	background: #fff;
+	margin-bottom: 0;
+	border-top: none;
+}
+
+.arealist dt {
+	line-height: 40px;
+	padding-left: 10px;
+	border-bottom: 1px solid #ccc;
+}
+.arealist dt a{
+	visibility: hidden;
+}
+.arealist dt:hover a{
+	visibility: visible;
+}
+.arealist dd a{
+	visibility: hidden;
+}
+.arealist dd:hover a{
+	visibility: visible;
+}
+.arealist dt label {
+	font-size: 0;
+	display: inline-block;
+	line-height: 0;
+	height: 40px;
+	-webkit-text-size-adjust: none;
+}
+
+.arealist dt label input,
+.arealist dt label span {
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 40px;
+	font-size: 14px;
+	margin: 0;
+}
+
+.arealist dt label span {
+	margin-left: 15px;
+	color: #767676;
+}
+
+.arealist dt a {
+	font-size: 12px;
+	font-weight: normal;
+	vertical-align: middle;
+	display: inline-block;
+	padding-top: 5px;
+	margin-left: 10px;
+}
+
+.arealist dd {
+	height: 36px;
+	padding-left: 40px;
+}
+
+.arealist dd:not(:last-child) {
+	border-bottom: 1px solid #ccc;
+}
+
+.arealist dd span.area-taglist {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.arealist dd span.area-taglist .area-tag {
+	border: 1px solid #ccc;
+	padding: 3px 5px;
+	border-radius: 5px;
+	vertical-align: middle;
+	margin: 0 5px;
+}
+
+.arealist dd span.area-taglist .area-tag i {
+	font-size: 16px;
+	color: #ec4e37;
+}
+
+.arealist dd span.area-taglist+ a {
+	font-size: 12px;
+	color: #56abe4;
+	line-height: 36px;
+	vertical-align: middle;
+	text-decoration: none;
+}
+
+
+/*角色信息*/
+
+.roleInfo {
+	border: 1px solid #ccc;
+	background: #fff;
+	width: 80%;
+	margin: 60px auto 0;
+	padding: 60px;
+}
+
+.roleInfo .roleInfo-cols1 {
+	float: left;
+	width: 400px;
+	border-right: 1px solid #ccc;
+}
+
+.roleInfo .roleInfo-cols1 li {
+	height: 40px;
+	line-height: 40px;
+}
+
+.roleInfo .roleInfo-cols1 li label {
+	width: 90px;
+	color: #999;
+}
+
+.roleInfo .roleInfo-cols1 li input[type=text] {
+	color: #666;
+	width: 200px;
+	background: none;
+	border: none;
+}
+
+.roleInfo .roleInfo-cols1 li input[type=text].name {
+	color: #444;
+	font-size: 24px;
+	width: 120px;
+}
+
+.roleInfo .roleInfo-cols1 li a {
+	float: right;
+	color: #999;
+	font-size: 12px;
+	margin-right: 20px;
+}
+
+
+/**********用户详情页面右侧内容的样式**********/
+
+.roleInfo .roleInfo-cols2 {
+	float: left;
+	width: 385px;
+}
+
+.roleInfo .roleInfo-cols2 .cols-top {
+	/*width: 430px;*/
+	width: 100%;
+	height: 26px;
+	background: #eaf2f7;
+	float: left;
+	margin-bottom: 20px;
+	overflow: hidden;
+	margin-left: 7px;
+}
+
+.roleInfo .roleInfo-cols2 ul li {
+	float: left;
+	width: 25%;
+	text-align: center;
+}
+
+.roleInfo .tab-detail {
+	display: none;
+}
+
+.roleInfo .tab-detail.on {
+	display: block;
+}
+
+.roleInfo .roleInfo-cols2 ul li a {
+	display: block;
+	font-size: 16px;
+	color: #666666;
+	width: 80px;
+	font-weight: bold;
+}
+
+.roleInfo .roleInfo-cols2 ul li a.active {
+	color: #2395de;
+}
+
+.roleInfo-cols2 .tab-detail {
+	margin-left: 48px;
+}
+
+.roleInfo-cols2 .tab-detail .tab-content {
+	float: left;
+	width: 100px;
+	border-right: 1px solid #ccc;
+	color: #999999;
+	padding-top: 10px;
+}
+
+.tab-detail label {
+	margin-left: 26px;
+	font-weight: none;
+	color: #999999;
+}
+
+#carrylimit {
+	color: #2395de;
+}
+
+.roleInfo-cols2 .tab-detail a {
+	color: #999999;
+	margin-left: 26px;
+	display: inline-block;
+	padding-top: 10px;
+}
+
+.addModal input[type=text],
+.addModal select,
+.addModal input[type=password] {
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	height: 30px;
+	width: 200px;
+	text-indent: 10px;
+}
+
+.addModal input[type=text][readonly=readonly] {
+	background: #efefef;
+}
+
+.addModal textarea {
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	width: 480px;
+	text-indent: 10px;
+	height: 60px;
+	line-height: 30px;
+}
+
+.addModal label {
+	display: inline-block;
+	width: 5em;
+}
+
+.colortag span {
+	height: 20px;
+	width: 20px;
+	border-radius: 2px;
+	display: inline-block;
+	background: #f00;
+	cursor: pointer;
+}
+
+.colortag span.active {
+	border: 2px solid #3299ff;
+}
+
+.changecolor {
+	height: 40px;
+	width: 100%;
+	display: block;
+	background: #f00;
+}
+
+.search-group {
+	margin: 5px 50px;
+	position: absolute;
+	z-index: 1;
+}
+
+.search-group .list-group a {
+	font-weight: bold;
+}
+
+.search-group .list-group a span {
+	font-weight: normal;
+}
+
+.list-group-item {
+	padding: 5px 10px;
+}
+
+.searchbar .chosen-select {
+	display: inline-block;
+	width: 300px;
+	height: 32px;
+}
+
+.checkbox-inline {
+	padding-left: 0px;
+}
+
+.checkbox-inline+ .checkbox-inline {
+	margin-top: 0;
+	margin-left: 40px;
+}
+
+.checkbox-inline label {
+	min-height: 20px;
+	padding-left: 0px;
+	margin-bottom: 0px;
+	font-weight: bolder;
+}
+
+table.table-hover tr:hover td:last-child a{
+	display: inline-block;
+}
+table.table-hover tr td:last-child a{
+	display: none;
+}

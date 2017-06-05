@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!--[if lt IE 9]>
+     <script src="dist/lib/ieonly/html5shiv.js"></script>
+     <script src="dist/lib/ieonly/respond.js"></script>
+     <script src="dist/lib/ieonly/excanvas.js"></script>
+    <![endif]-->
+		<link href="css/zui.css" rel="stylesheet" />
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script src="js/zui.js"></script>
+		<script src="js/common.js"></script>
+		<link href="css/common.css" rel="stylesheet" />
+		<title>左侧导航-设置</title>
+	</head>
+
+	<body class="menubg">
+		<div class="aside-nav" style="padding-top: 10px">
+			<ul class="menu" id="aside-nav">
+				<li>
+					<h5>用户</h5></li>
+				<li>
+					<a href="set.html" target="container" class="active">
+						<i class="iconfont icon-lgoinuser"></i>
+						<b>用户</b>
+					</a>
+
+				</li>
+				<!--<li>
+                <a href="role.html" target="container">
+                    <i class="iconfont icon-ordinaryxiangxi"></i>
+                    <b>角色</b>
+                </a>
+
+            </li>-->
+
+				<li>
+					<a href="permissions.html" target="container">
+						<i class="iconfont icon-system"></i>
+						<b>权限</b>
+
+					</a>
+
+				</li>
+				<li style="border-bottom: 1px solid #0e529d;">
+					<a href="permissionsgroup.html" target="container">
+						<i class="iconfont icon-system"></i>
+						<b>权限组</b>
+
+					</a>
+
+				</li>
+				<li>
+					<h5>参数</h5></li>
+				<li>
+					<a href="param.html" target="container">
+						<i class="iconfont icon-quanxian"></i>
+						<b>参数</b>
+
+					</a>
+				</li>
+				<li>
+					<a href="dictionary.html" target="container">
+						<i class="iconfont icon-quanxian"></i>
+						<b>字典</b>
+
+					</a>
+					<ul style="margin-left: 0px;">
+						<li>
+							<a href="device_recognize.html" target="container">
+								<i class="iconfont icon-quanxian"></i>
+								<b>设备识别率</b>
+							</a>
+						</li>
+					</ul>
+					<!--   <ul>
+                    <li><a href="label.html" target="container">
+                        <i class="iconfont icon-quanxian"></i>
+                        <b>标签</b>
+
+                    </a>
+
+                    </li>
+                    <li><a href="param.html" target="container">
+                        <i class="iconfont icon-quanxian"></i>
+                        <b>分类</b>
+
+                    </a>
+
+                    </li>
+                </ul>-->
+				</li>
+				<li>
+					<a href="label.html" target="container">
+						<i class="iconfont icon-quanxian"></i>
+						<b>标签</b>
+
+					</a>
+					<li>
+						<a href="area.html" target="container">
+							<i class="iconfont icon-quanxian"></i>
+							<b>区域</b>
+
+						</a>
+
+					</li>
+					<!--             <li><h5>版本</h5></li>
+             <li>
+                <a href="question.html" target="container">
+                    <i class="iconfont icon-quanxian"></i>
+                    <b>问题反馈</b>
+
+                </a>
+
+            </li>
+              <li>
+                <a href="device.html" target="container">
+                    <i class="iconfont icon-quanxian"></i>
+                    <b>设备指令</b>
+
+                </a>
+
+            </li>
+              <li style="border-bottom: 1px solid #0e529d;">
+                <a href="repair.html" target="container">
+                    <i class="iconfont icon-quanxian"></i>
+                    <b>返修单</b>
+
+                </a>
+
+            </li>
+              <li>
+                <a href="contact.html" target="container">
+                    <i class="iconfont icon-quanxian"></i>
+                    <b>联系人</b>
+
+                </a>
+
+            </li> -->
+					<!-- <li>
+            	<a href="device_recognize.html" target="container">
+                    <i class="iconfont icon-quanxian"></i>
+                    <b>设备识别率</b>
+
+                </a>
+            </li>-->
+			</ul>
+		</div>
+	</body>
+
+</html>
+<script type="text/javascript">
+	$(function() {
+		$('#aside-nav li a').click(function() {
+			$('#aside-nav li a.active').removeClass('active');
+			$(this).addClass('active');
+		})
+	})
+</script>

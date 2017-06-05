@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link href="css/zui.css" rel="stylesheet" />
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/zui.js"></script>
+    <link href="css/common.css" rel="stylesheet" />
+
+    <script src="js/common.js"></script>
+    <title>首页</title>
+</head>
+
+<body>
+    <!-- 头部 star-->
+    <div class="header row" style="min-width: 1330px;">
+        <span class="logo pull-left">
+            <img src="images/company_logo.png" />
+        </span>
+        <p>信息机管理平台</p>
+        <ul class="nav pull-left">
+            <!--  <li><a href="notice_menu.html" target="submenu" >信息管理</a></li>
+            <li><a href="myHR_menu.html" target="submenu">运维</a></li>
+            <li><a href="setHR_menu.html" target="submenu">现场管理</a></li>
+            <li><a href="setsys_menu.html" target="submenu">供应链</a></li>
+            <li><a href="setsys_menu.html" target="submenu">后台能力</a></li>
+            <li><a href="set_menu.html" target="submenu">售后服务</a></li>
+            <li><a href="set_menu.html" target="submenu">供应链</a></li>-->
+
+            <!--	<li><a href="set_menu.html" target="submenu">版本管理</a></li>-->
+           
+            <li><a href="search_menu.html" target="submenu" class="active">查询</a></li>
+            <li><a href="app_menu.html" target="submenu">版本</a></li>
+            <li><a href="set_menu.html" target="submenu">设置</a></li>
+        </ul>
+        <ul class="pull-right user">
+            <li class="dropdown">
+               <!-- <span class="userName">张志祥 1009</span>-->
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration: none;width: 140px;">
+                    <!--<i class="iconfont icon-user" style="font-size: 20px; color: #747474"></i>-->
+                    <i class="iconfont icon-user " style="font-size: 20px;color: #145ccd;margin-right: 10px;"></i>
+                     <span class="userName mr5">张志祥 1009</span>
+                    <i class="arrow icon icon-chevron-down"></i>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="#">个人信息</a>
+                        <a href="#">修改密码</a>
+                        <a href="#" target="_blank">帮助中心</a>
+                        <a href="javascript:void(0)" class="js-exit">退出</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <!-- 头部 end-->
+    <!-- 内容部分 star-->
+    <div class="content row bgf3">
+        <!-- 右侧内容 star-->
+        <div class="mainbox">
+            <div class="wrap">
+                <iframe src="heartbeat_list.html" id="aa" name="container" frameborder="none"></iframe>
+            </div>
+        </div>
+        <!-- 右侧内容 end-->
+        <!-- 左侧导航 star-->
+        <div class="submenu">
+            <iframe src="search_menu.html" name="submenu" frameborder="none"></iframe>
+        </div>
+        <!-- 左侧导航 end-->
+    </div>
+
+</body>
+
+</html>
+<script type="text/javascript">
+    $(function () {
+        var session = localStorage.getItem('$session');
+        if (!session) {
+            window.location.href = 'login.html';
+        }
+        var userInfo = JSON.parse(localStorage.getItem('$userInfo') || null); //保存登录后的信息
+        if (userInfo) {
+            var username = userInfo.username;
+            $(".userName").text(username);
+          
+        }
+        $(".js-exit").click(function () {
+            localStorage.clear();
+            window.location.href = 'login.html';
+           
+        })
+
+        $('.nav li a').click(function () {
+            $('.nav li a.active').removeClass('active');
+            $(this).addClass('active');
+        })
+    })
+</script>

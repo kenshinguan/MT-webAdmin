@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>任务单详情</title>
+    <link href="css/zui.css" rel="stylesheet" />
+    <link href="lib/datatable/zui.datatable.min.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <link href="css/page.css" rel="stylesheet" />
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/zui.js"></script>
+    <script src="lib/datatable/zui.datatable.min.js"></script>
+    <script src="js/common.js"></script>
+    <!--[if lt IE 9]>
+     <script src="dist/lib/ieonly/html5shiv.js"></script>
+     <script src="js/respond.js"></script>
+     <script src="dist/lib/ieonly/excanvas.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="head">
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="icon icon-home"></i>当前位置</a></li>
+            <li><a href="#">现场任务管理</a></li>
+            <li class="active">任务单</li>
+        </ol>
+    </div>
+    <div class="main task-list-detail">
+        <h2 class="page-title">任务单详情</h2>
+        <div class="content">
+            <div class="task-header row">
+                <div class="task-info col-md-8">
+                    <h3 class="task-title">RW201604160110安装话机</h3>
+                    <ul>
+                        <li>
+                            <label for="">优先级</label><span>紧急</span></li>
+                        <li>
+                            <label for="">截止日期</label><span>2016.04.20</span></li>
+                        <li>
+                            <label for="">状态</label><span>进行中</span></li>
+                        <li>
+                            <label for="">实际完成时间</label><span>未填写</span></li>
+                        <li>
+                            <label for="">责任人</label><span>未指定</span></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 task-output">
+                    <label for="">创建人</label><span>杨鑫 04月15日 16:20</span>
+                    <button type="button" class="btn btn-primary btn-output">导出</button>
+                </div>
+            </div>
+            <div class="task-tab">
+                <ul class="nav nav-primary">
+                    <li class="active"><a href="#">基本信息</a></li>
+                    <li><a href="#">日志</a></li>
+                    <li><a href="#">附件</a></li>
+                </ul>
+                <a href="#">操作日志</a>
+            </div>
+            <div class="task-block">
+                <div class="task-block-header">
+                    <h5 class="task-block-title">任务描述</h5>
+                    <p class="task-block-actions">
+                        <button type="button" class="btn btn-primary" data-type="editBtn" data-target="#taskDescription">编辑</button>
+                        <button type="button" class="hidden btn btn-success" data-type="saveBtn" data-target="#taskDescription">保存</button>
+                        <button type="button" class="hidden btn btn-default" data-type="cancelBtn" data-target="#taskDescription">取消</button>
+                    </p>
+                </div>
+                <div class="task-block-body">
+                    <textarea id="taskDescription" name="" placeholder="请输入描述" readonly disabled="">暂无描述</textarea>
+                </div>
+            </div>
+            <div class="task-block">
+                <div class="task-block-header">
+                    <h5 class="task-block-title">任务清单</h5>
+                    <p class="task-block-actions">
+                        <button type="button" class="btn btn-primary" id="addTodo" data-target="#todoList">添加任务</button>
+                    </p>
+                    <button type="button" class="btn btn-primary btn-output">导出</button>
+                </div>
+                <div class="task-block-body edit-task" id="todoList">
+                    <ul>
+                        <li>
+                            <input type="checkbox">
+                            <span class="task-label">任务1</span>
+                            <input class="todo-notes" type="text" placeholder="请输入备注" value="备注" readonly="readonly" />
+                            <span class="edit-task-delete">删除</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="task-block">
+                <div class="task-block-header">
+                    <h5 class="task-block-title">关联项目</h5>
+                    <p class="task-block-actions">
+                        <button type="button" class="btn btn-primary" data-moveable="true" data-toggle="modal" data-target="#addRelatedProject">添加</button>
+                        <button type="button" class="btn btn-default">删除</button>
+                    </p>
+                    <button type="button" class="btn btn-primary btn-output">导出</button>
+                </div>
+                <div class="task-block-body with-table">
+                    <table class="table datatable" id="relatedProjectTable">
+                        <thead>
+                            <tr>
+                                <th data-type="string">项目编号</th>
+                                <th data-type="string">项目名称</th>
+                                <th data-type="string">负责人</th>
+                                <th data-type="date">操作时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>RW201604160110</td>
+                                <td>项目1</td>
+                                <td>王凯</td>
+                                <td>2016-05-12 14:23</td>
+                            </tr>
+                            <tr>
+                                <td>RW201604160111</td>
+                                <td>项目2</td>
+                                <td>王开</td>
+                                <td>2016-05-13 14:23</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 添加关联项目 -->
+    <div class="modal fade" id="addRelatedProject">
+        <div class="modal-dialog modal-bg ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                    <h4 class="modal-title">添加关联项目</h4>
+                </div>
+                <div class="modal-body">
+                    <form action=""  class="input-group">
+                        <p>
+                            <label for="">项目编号</label>
+                            <input class="form-control" type="text" placeholder="请输入项目编号">
+                        </p>
+                        <p>
+                            <label for="">项目名称</label>
+                            <input class="form-control" type="text" placeholder="请输入项目名称">
+                        </p>
+                        <p>
+                            <label for="">负责人</label>
+                            <input class="form-control" type="text" placeholder="请输入负责人">
+                        </p>
+                        <!-- <p>
+                            <label for="">操作时间</label>
+                            <input class="form-control" type="text" placeholder="请输入操作时间">
+                        </p> -->
+                    </form>
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="button" class="btn btn-primary" id="addBtn">添加</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 删除确认框 -->
+    <div class="modal fade" id="deleteConfirm">
+        <div class="modal-dialog modal-sm ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                    <h4 class="modal-title">确定删除吗？</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="button" class="btn btn-primary">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/page.js"></script>
+    <script>
+    //初始化数据表
+    $('.datatable').datatable({
+        checkable: true,
+        sortable: true
+    });
+
+    //初始化任务单详情页面js
+    taskDetail.init();
+    </script>
+</body>
+
+</html>

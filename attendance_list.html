@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>问题</title>
+    <link href="css/zui.css" rel="stylesheet" />
+    <link href="css/chosen.css" rel="stylesheet" />
+    <link href="css/datetimepicker.css" rel="stylesheet" />
+    <link href="lib/datatable/zui.datatable.min.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <link href="css/page.css" rel="stylesheet" />
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/zui.js"></script>
+    <script src="js/chosen.js"></script>
+    <script src="js/datetimepicker.js"></script>
+    <script src="lib/datatable/zui.datatable.min.js"></script>
+    <script src="js/common.js"></script>
+</head>
+<style type="text/css">
+    .searchbar input[type=text][readonly=readonly] {
+        background: #fff;
+        width: 200px;
+    }
+    .page_explain {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+</style>
+
+<body class="minwidth1080">
+    <div class="head">
+      
+        <ol class="breadcrumb">
+            <li><a href="your/url/"><i class="icon icon-home"></i>当前位置</a></li>
+            <li><a href="your/url/">查询</a></li>
+            <li class="active">考勤查询</li>
+        </ol>
+        <div class="row operationbar">
+            <div class="col-md-7">
+            </div>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="icon-search"></i></span>
+                    <input type="text" class="form-control" id="searchKey">
+                    <span class="input-group-addon input-remove"><i class="icon-remove-circle"></i></span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">搜索</button>
+                    </span>
+                </div>
+                <div class="search-group hidden" id='searchlist'>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item active" data-type="equipmentMid">
+                            在mid中查找：
+                            <span></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="searchbar">    
+            <label class="ml10">日期</label>
+            <input type="text" class="form-control" readonly="readonly" id="date" />              
+        </div>
+    </div>
+    <div class="main">
+        <table class="table table-striped table-bordered cardTable table-datatable datatable">
+            <thead>
+                <tr>
+                    <th style="width: 7%">序号</th>
+                    <th style="width: 18%">MID</th>
+                    <th style="width: 20%">条数</th>
+                    <th style="width: 20%">考勤</th>
+                    <th style="width: 20%">时间</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+
+
+        </table>
+    </div>
+    <div class="page_explain">
+        <h5 class="ml10" style="color: #FF0000;">*只能通过搜索MID查询单个设备的考勤信息</h5>
+    </div>
+</body>
+
+</html>
+<script>
+    //初始化数据表
+    var page = '', pageSize = '', pagecount = 0;
+    $(function () {
+        $('#searchlist .list-group a').click(function () {
+            $('#searchlist .list-group a.active').removeClass('active');
+            $(this).addClass('active');
+        });
+        $('.input-group-btn .btn-default').click(function() {
+            page = '';
+            getdata(page);
+        });
+
+        var date = new Date();
+        $('#date').val(date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate());
+        $('#date').selecDay();
+        
+        searchkey();
+
+        // getdata(page);
+
+    });
+
+    function getdata(page) {
+        var date = $('#date').val();
+
+        var mid = '';
+        var type = $('#searchlist .list-group-item.active').attr('data-type');
+        if (type == 'equipmentMid' && $('#searchKey').val()) {
+            mid = $('#searchKey').val();
+        } else {
+            var msg = $.zui.messager.show('请输入mid', {
+                placement: 'top',
+                time: '1000'
+            });
+            return;
+        }
+
+        var param = {
+            "date": date,
+            "mid": mid,
+            "mid": mid,
+            "operater": operater,
+            "clientType": 'app',
+            "page": page,
+            "pageSize": pageSize,
+            "sessionKey": session.sessionKey,
+            "sessionId": session.sessionId
+        }
+        console.log(JSON.stringify(param));
+        
+        $.ajax({
+            type: 'post',
+            url: service + "msg_attendance_count/find",
+            dataType: "json",
+            data: param,
+            success: function (data) {
+                console.log(JSON.stringify(data));
+                if (data.ret == 'ok') {
+                    var result = data.item;
+                    // pagecount = Math.ceil(data.totalSize / pageSize);
+
+                    // _TOTAL = pagecount;
+                    // _NUM = data.page;
+                    // pager(_NUM, _TOTAL);
+                    var str = "";
+                    if (result) {
+                        for (var i = 0; i < result.length; i++) {
+                            str += ' <tr data-id="' + result[i].id + '"> <td>' + (i+1) + '</td><td>' + result[i].msgId + '</td><td>' + result[i].num +'</td><td>' + result[i].workTime + '</td><td>' + result[i].date + '</td></tr>';
+                        }
+
+                        $('.main table tbody').html(str);
+                        $(".total").text(data.totalSize);
+
+                    } else {
+                        $('.main table tbody').html(str);
+                    }
+                }
+
+
+
+            },
+            error: function () {
+                alert("发生错误");
+            }
+        });
+    }
+</script>

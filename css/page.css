@@ -1,0 +1,230 @@
+/**
+* 具体页面的样式
+* 
+*
+*/
+
+/*============任务单详情===========*/
+
+.task-list-detail .page-title {
+    font-weight: normal;
+    font-size: 14px;
+    color: #7c7c7c;
+    background: #e3e3e3;
+    padding: 15px 0;
+    padding-left: 20px;
+    margin: 0 -20px 0 -10px;
+}
+
+.task-list-detail .btn {
+    padding: 3px 12px;
+}
+
+.task-list-detail .btn.btn-primary {
+    background: #2395de;
+}
+
+.task-list-detail a {
+    color: #2395de;
+}
+
+.task-list-detail .btn.btn-success {
+    background: #0fc587;
+}
+
+.task-list-detail .btn-output {
+    margin: 0 20px;
+}
+
+.task-header {
+    padding: 10px 0;
+    border-bottom: 1px solid #E3E3E3;
+}
+
+.task-header ul li+li {
+    margin-left: 15px;
+}
+
+.task-header label {
+    font-weight: normal;
+    color: #c6c6c6;
+}
+
+.task-header label::after {
+    content: ":";
+    margin-right: 8px;
+}
+
+.task-header,
+.task-tab,
+.task-block {
+    margin-bottom: 20px;
+}
+
+.task-info .task-title {
+    display: inline-block;
+    margin: 0;
+    margin-right: 20px;
+    font-weight: normal;
+    line-height: 1.7;
+}
+
+.task-info ul {
+    display: inline-block;
+    margin: 0;
+}
+
+.task-info ul li {
+    display: inline-block;
+    /*float: left;*/
+}
+
+.task-output {
+    text-align: right;
+    /*padding-right: 0;*/
+}
+
+.task-tab {
+    margin: 30px 0;
+}
+
+.task-tab ul {
+    display: inline-block;
+    height: 20px;
+    margin: 0 40px 0 10px;
+}
+
+.task-tab .nav-primary > li.active > a,
+.task-tab .nav-primary > li.active > a:hover,
+.task-tab .nav-primary > li.active > a:focus {
+    background-color: #226b9a;
+    border-color: #226b9a;
+}
+
+.task-tab .nav > li > a {
+    padding: 4px 15px;
+    min-width: 100px;
+    text-align: center;
+}
+
+.task-tab .nav-primary > li:first-child > a {
+    border-radius: 20px 0 0 20px;
+}
+
+.task-tab .nav-primary > li:last-child > a {
+    border-radius: 0 20px 20px 0;
+}
+
+.task-block {
+    border: 1px solid #E3E3E3;
+    padding: 10px 0;
+}
+
+.task-block-header {
+    padding: 0 10px;
+    border-bottom: 1px solid #E3E3E3;
+}
+
+.task-block-header .task-block-title,
+.task-block-header .task-block-actions {
+    display: inline-block;
+}
+
+.task-block-header .task-block-title {
+    font-weight: normal;
+    margin: 0 30px 0 15px;
+}
+
+.task-block-header .btn-output {
+    float: right;
+}
+
+.task-block-body {
+    padding: 10px 10px 0 10px;
+}
+
+.task-block-body.with-table {
+    padding: 0;
+}
+
+.task-block-body.with-table table th+th,
+.task-block-body.with-table table td+td {
+    border-left: 1px solid #E3E3E3;
+}
+.task-block-body.with-table table input[type="checkbox"]{
+    margin-left: 20px;
+}
+.task-block-body textarea {
+    width: 640px;
+    height: 60px;
+    border: none;
+    outline: none;
+    margin-left: 15px;
+}
+
+.task-block-body textarea[disabled] {
+    resize: none;
+}
+
+.task-block-body textarea:focus {
+    outline: none;
+    border: 1px solid #ffb770;
+    resize: vertical;
+    padding: 4px 6px;
+}
+
+.task-block-body.edit-task ul {
+    padding-left: 0;
+}
+
+.task-block-body.edit-task ul li {
+    background: #eeeeee;
+    padding: 8px 15px;
+}
+
+.task-block-body.edit-task ul li+li {
+    margin-top: 8px;
+}
+.task-block-body.edit-task input[type="checkbox"]{
+    margin-right: 10px;
+}
+.task-block-body.edit-task .task-label {
+    text-align: left;
+    padding: 0 20px;
+}
+
+.task-block-body.edit-task input[type="text"] {
+    width: 200px;
+    padding: 2px 4px;
+}
+
+.task-block-body.edit-task input[readonly] {
+    background: none;
+    border: none;
+}
+
+.task-block-body.edit-task .edit-task-delete {
+    color: #b02727;
+    cursor: pointer;
+    margin-left: 50px;
+}
+
+/*添加关联项目弹窗表单*/
+#addRelatedProject form p{
+    display: inline-block;
+}
+#addRelatedProject form label{
+    font-weight: normal;
+    width: 80px;
+    float: left;
+    text-align: right;
+    line-height: 2.5;
+}
+#addRelatedProject form label:after{
+    content: ":";
+    margin-right: 8px;
+}
+#addRelatedProject form input[type="text"]{
+    width: 190px;
+
+}
