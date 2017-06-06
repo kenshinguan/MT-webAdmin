@@ -26,21 +26,13 @@
         <span class="logo pull-left">
             <img src="images/company_logo.png" />
         </span>
-        <p>信息机管理平台</p>
+        <p>麦棠社区管理平台</p>
         <ul class="nav pull-left">
-            <!--  <li><a href="notice_menu.html" target="submenu" >信息管理</a></li>
-            <li><a href="myHR_menu.html" target="submenu">运维</a></li>
-            <li><a href="setHR_menu.html" target="submenu">现场管理</a></li>
-            <li><a href="setsys_menu.html" target="submenu">供应链</a></li>
-            <li><a href="setsys_menu.html" target="submenu">后台能力</a></li>
-            <li><a href="set_menu.html" target="submenu">售后服务</a></li>
-            <li><a href="set_menu.html" target="submenu">供应链</a></li>-->
-
-            <!--	<li><a href="set_menu.html" target="submenu">版本管理</a></li>-->
-           
-            <li><a href="search_menu.html" target="submenu" class="active">查询</a></li>
-            <li><a href="app_menu.html" target="submenu">版本</a></li>
-            <li><a href="set_menu.html" target="submenu">设置</a></li>
+            <li><a href="account_menu.html" target="submenu" class="active">账户管理</a></li>
+            <li><a href="app_menu.html" target="submenu">学院管理</a></li>
+            <li><a href="app_menu.html" target="submenu">交易管理</a></li>
+            <li><a href="app_menu.html" target="submenu">论坛管理</a></li>
+            <li><a href="app_menu.html" target="submenu">系统设置</a></li>
         </ul>
         <ul class="pull-right user">
             <li class="dropdown">
@@ -68,13 +60,13 @@
         <!-- 右侧内容 star-->
         <div class="mainbox">
             <div class="wrap">
-                <iframe src="heartbeat_list.html" id="aa" name="container" frameborder="none"></iframe>
+                <iframe src="account_list.html" id="aa" name="container" frameborder="none"></iframe>
             </div>
         </div>
         <!-- 右侧内容 end-->
         <!-- 左侧导航 star-->
         <div class="submenu">
-            <iframe src="search_menu.html" name="submenu" frameborder="none"></iframe>
+            <iframe src="account_menu.html" name="submenu" frameborder="none"></iframe>
         </div>
         <!-- 左侧导航 end-->
     </div>
@@ -90,8 +82,8 @@
         }
         var userInfo = JSON.parse(localStorage.getItem('$userInfo') || null); //保存登录后的信息
         if (userInfo) {
-            var username = userInfo.username;
-            $(".userName").text(username);
+            var name = userInfo.name;
+            $(".userName").text(name);
           
         }
         $(".js-exit").click(function () {

@@ -8,7 +8,7 @@
     <link href="css/common.css" rel="stylesheet" />
     <script src="js/jquery-1.9.1.min.js"></script>
     <script src="js/zui.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
+    <script src="js/common.js"></script>
     <!--[if lt IE 9]>
      <script src="dist/lib/ieonly/html5shiv.js"></script>
      <script src="js/respond.js"></script>
@@ -23,16 +23,16 @@
     		<div class="mainwidth">
 		<a href="" class="pull-left logo">
 			<img src="images/company_logo.png" />
-			<span>信息机管理平台</span>
+			<span>麦棠社区管理平台</span>
 		</a>
 	</div>
 	<div class="loginbox">
-	 <div class="form-content" style="margin-top: 100px;">
+    	<div class="form-content" style="margin-top: 100px;">
             <form class="loginBox">
-                <h5 class="text-center">信息机管理平台</h5>
+                <h5 class="text-center">麦棠社区管理平台</h5>
                 <div class="control inputtxt">
                    <!-- <i class="icon01"></i>-->
-                    <input type="text" placeholder="手机号或邮箱" id="accountInput" />
+                    <input type="text" placeholder="手机号" id="accountInput" />
                 </div>
                 <div class="control inputtxt">
                   <!--  <i class="icon02"></i>-->
@@ -53,7 +53,7 @@
                 </div>-->
             </form>
         </div>
-</div>      
+    </div>      
     </div>
     	</div>
 </body>
@@ -61,80 +61,98 @@
 </html>
 <script type="text/javascript">
     $(function () {
-        //  
         var userInfo = JSON.parse(localStorage.getItem('$loginInfo') || '{"account":"","password":""}');
 
         $('#accountInput').val(userInfo.account);
         $('#passwordInput').val(userInfo.password);
-        $("#loginBtn").click(function () {
-            var account = $('#accountInput').val(),
-			password = $('#passwordInput').val();
 
-            var email = '',
-                phone = '';
+        $("#loginBtn").click(function () {
+            var account = $('#accountInput').val();
+			var password = $('#passwordInput').val();
+
+            var phone = '';
             if (checkPhone(account)) {
                 phone = account;
-            } else if (checkEmail(account)) {
-                email = account;
             } else {
-                $.zui.messager.show('请输入正确的帐号', {
+                $.zui.messager.show('请输入正确的手机号', {
                     placement: 'top',
                     time: '1000'
                 });
-
                 return;
             }
 
 
             var param = {
-                email: email,
-                phone: phone,
-                password: password,
-                sessionId: session.sessionId,
-                sessionKey: session.sessionKey,
+                "username": phone,
+                "password": password,
             }
-            $.ajax({
+            param = JSON.stringify(param);
 
+            $.ajax({
                 type: 'post',
-                url: service + "user/manager_login",
+                url: service + "user/login",
                 dataType: "json",
                 data: param,
-                success: function (data) {
-                    console.log("登录数据" + JSON.stringify(data));
-                    if (data.ret == 'ok') {
-                        if (data.item) {
-                            _localize(data);
-                        }
-                        window.location.href = 'index.html';
-
-                    } else {
-                        $.zui.messager.show(data.reason, {
-                            placement: 'top',
-                            time: '1000'
-                        });
-
-
-                    }
+                headers: {
+                    "Content-type": "application/json;charset=UTF-8",
+                    "X-APICloud-AppId": appId,
+                    "X-APICloud-AppKey": appKey               
                 },
-                error: function () {
-                    alert("发生错误");
+                success: function (data) {
+                    console.log("登录：" + JSON.stringify(data));
+
+                    getUserInfos(data.id, data.userId);
+                },
+                error: function (error) {
+                    console.log("发生错误：" + error.responseText);
+                    $.zui.messager.show(JSON.parse(error.responseText).error.message, {
+                        placement: 'top',
+                        time: '1000'
+                    });
                 }
             });
-        })
-    })
-    function _localize(data) {
-        var account = $('#accountInput').val(),
-         password = $('#passwordInput').val();
+        });
+    });
+
+    function getUserInfos(tokenId, userId) {
+        $.ajax({
+            type: 'get',
+            url: service + "user/" + userId,
+            dataType: "json",
+            headers: {
+                "Content-type": "application/json;charset=UTF-8",
+                "X-APICloud-AppId": appId,
+                "X-APICloud-AppKey": appKey               
+            },
+            success: function (data) {
+                console.log("管理员信息：" + JSON.stringify(data));
+
+                if (data) {
+                    _localize(tokenId, data);
+                }
+                window.location.href = 'index.html';
+            },  
+            error: function (error) {
+                console.log("发生错误：" + error.responseText);
+                $.zui.messager.show(JSON.parse(error.responseText).error.message, {
+                    placement: 'top',
+                    time: '1000'
+                });
+            }
+        });
+    }
+
+    function _localize(tokenId, data) {
+        var account = $('#accountInput').val();
+        var password = $('#passwordInput').val();
         var loginInfo = {
             account: account,
             password: password
-        };
-        var session = {
-            sessionId: data.item.sessionId,
-            sessionKey: data.item.sessionKey
         }
-        var userInfo = data.item;
-        var sessionId = data.item.sessionId;
+        var session = {
+            sessionId: tokenId,
+        }
+        var userInfo = data;
         localStorage.setItem('$loginInfo', JSON.stringify(loginInfo)); //保存登录帐号
         localStorage.setItem('$userInfo', JSON.stringify(userInfo)); //保存登录后的信息
         localStorage.setItem('$session', JSON.stringify(session)); //保存session
