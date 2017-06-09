@@ -76,8 +76,9 @@
 	                    	</form>
 	                    </div>
 	                    <div class="modal-footer text-center">
-	                        <button type="button" class="btn btn-primary" onclick="ok()">确定</button>
-	                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	                    	<button type="button" class="btn btn-success" onclick="yes()">通过</button>
+	                        <button type="button" class="btn btn-danger" onclick="no()">不通过</button>
+	                        <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
 	                    </div>
 	                </div>
 	            </div>
@@ -155,10 +156,6 @@
 				<span class="ml10">总计：<span class="total">82</span>条</span>
 				<label class="ml40">显示</label>
 				<select class="form-control" id="pageSize">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
 					<option value="5">5</option>
 					<option value="10">10</option>
 					<option value="20">20</option>
@@ -182,11 +179,13 @@
 <script>
 	//初始化数据表
 	var page = 0,
-		pageSize = 1,
+		pageSize = 5,
 		pagecount = 0,
 		totalSize = 0;
 
 	var searchtype = 'userName';
+
+	var reviewId = '';
 
 	$(function() {
 		$('#searchlist .list-group a').click(function() {
@@ -364,6 +363,8 @@
 	}
 
 	function reviewAccount(data) {
+		reviewId = data.id;
+
 		$("#reviewhead").attr("src", data.head_base64);
 		$("#reviewname").text(data.name);
 		$("#reviewnumber").text(data.number);
@@ -371,10 +372,92 @@
 		$("#reviewpassword").text(data.password);
 		$("#reviewstate").text(data.state);
 
+		if (data.is_review == '0') {
+			$(".modal-footer .btn-success").attr('disabled', false);
+			$(".modal-footer .btn-danger").attr('disabled', false);
+		} else {
+			$(".modal-footer .btn-success").attr('disabled', true);
+			$(".modal-footer .btn-danger").attr('disabled', true);
+		}
+
         $("#addModal").modal({
             position: 200,
             moveable: true,
             rememberPos: false
+        });
+	}
+
+	function yes() {
+        var param = {
+        	"name": $("#reviewname").text(),
+        	"number": $("#reviewnumber").text(),
+        	"userpassword": $("#reviewpassword").text(),
+        	"usertype": "app",
+        	"reputation": "100",
+            "username": $("#reviewphone").text(),
+            "password": $("#reviewpassword").text()
+        }
+        param = JSON.stringify(param);
+
+        $.ajax({
+            type: 'post',
+            url: service + "user",
+            dataType: "json",
+            data: param,
+            headers: {
+                "Content-type": "application/json;charset=UTF-8",
+                "X-APICloud-AppId": appId,
+                "X-APICloud-AppKey": appKey               
+            },
+            success: function (data) {
+                console.log("审核通过：" + JSON.stringify(data));
+                setReview("通过", "1");
+            },
+            error: function (error) {
+                console.log("发生错误：" + error.responseText);
+                $.zui.messager.show(JSON.parse(error.responseText).error.message, {
+                    placement: 'top',
+                    time: '1000'
+                });
+            }
+        });
+	}
+
+	function no() {
+		setReview("不通过", "1");
+	}
+
+	function setReview(state, is_review) {
+        var param = {
+        	"$set": {
+        		state: state,
+        		is_review: is_review,
+        	},
+        	"_method": "PUT"
+        }
+        param = JSON.stringify(param);
+
+        $.ajax({
+            type: 'post',
+            url: service + "user_apply/" + reviewId,
+            dataType: "json",
+            data: param,
+            headers: {
+                "Content-type": "application/json;charset=UTF-8",
+                "X-APICloud-AppId": appId,
+                "X-APICloud-AppKey": appKey               
+            },
+            success: function (data) {
+                console.log("修改审核状态：" + JSON.stringify(data));
+
+            },
+            error: function (error) {
+                console.log("发生错误：" + error.responseText);
+                $.zui.messager.show(JSON.parse(error.responseText).error.message, {
+                    placement: 'top',
+                    time: '1000'
+                });
+            }
         });
 	}
 </script>

@@ -127,9 +127,18 @@
             success: function (data) {
                 console.log("管理员信息：" + JSON.stringify(data));
 
+                if (data.usertype != "admin") {
+                    $.zui.messager.show("无管理员权限！", {
+                        placement: 'top',
+                        time: '1000'
+                    });
+                    return;
+                }
+
                 if (data) {
                     _localize(tokenId, data);
                 }
+                
                 window.location.href = 'index.html';
             },  
             error: function (error) {
