@@ -364,6 +364,7 @@
 
 	function reviewAccount(data) {
 		reviewId = data.id;
+		reviewHead = data.head_base64;
 
 		$("#reviewhead").attr("src", data.head_base64);
 		$("#reviewname").text(data.name);
@@ -392,6 +393,7 @@
         	"name": $("#reviewname").text(),
         	"number": $("#reviewnumber").text(),
         	"userpassword": $("#reviewpassword").text(),
+        	"head": reviewHead,
         	"usertype": "app",
         	"reputation": "100",
             "username": $("#reviewphone").text(),
