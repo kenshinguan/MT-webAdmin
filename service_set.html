@@ -166,24 +166,51 @@
 
 </html>
 <script>
-	var ue = '';
+	var ue = '', serviceId = '';
+
 	$(function() {
-		/*初始化富文本编辑器*/
 		ue = UE.getEditor('editor', {
 			initialFrameWidth: 860,
 			initialFrameHeight: 400
 		});
+
+		getdata();
 	});
 
-    function ok() {
+    function getdata() {
+        $.ajax({
+            type: 'get',
+            url: service + "service",
+            dataType: "json",
+            headers: {
+                "Content-type": "application/json;charset=UTF-8",
+                "X-APICloud-AppId": appId,
+                "X-APICloud-AppKey": appKey               
+            },
+            success: function(data) {
+                // console.log(JSON.stringify(data));
+                if(data) {
+                	serviceId = data[0].id;
+					ue.ready(function() {
+                		ue.setContent(data[0].content);
+                	});
+                }
+
+            },
+            error: function (error) {
+                console.log("发生错误：" + JSON.stringify(error));
+                $.zui.messager.show(JSON.parse(error.responseText).error.message, {
+                    placement: 'top',
+                    time: '1000'
+                });
+            }
+        });
+    }
+
+    function set() {
         var param = {
             "$set": {
-                title: $("#adtitile").val(),
-                content: $("#adcontent").val(),
-                url: $("#adurl").val(),
-                length: $("#adlength").val(),
-                price: $("#adprice").val(),
-                logo: $('#adlogo').attr('src')
+                content: ue.getContent()
             },
             "_method": "PUT"
         }
@@ -191,7 +218,7 @@
 
         $.ajax({
             type: 'post',
-            url: service + "headlnews/" + adId,
+            url: service + "service/" + serviceId,
             dataType: "json",
             data: param,
             headers: {
@@ -200,8 +227,11 @@
                 "X-APICloud-AppKey": appKey               
             },
             success: function (data) {
-                console.log("更新广告栏：" + JSON.stringify(data));
-
+                console.log("更新联系客服：" + JSON.stringify(data));
+                $.zui.messager.show('设置成功', {
+                    placement: 'top',
+                    time: '1000'
+                });
             },
             error: function (error) {
                 console.log("发生错误：" + error.responseText);
