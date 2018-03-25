@@ -16,7 +16,11 @@
 		<script src="js/common.js"></script>
 	</head>
 	<style type="text/css">
-
+        table tr td img {
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%;
+        }
 	</style>
 
 	<body class="minwidth1080">
@@ -78,16 +82,16 @@
 				<thead>
 					<tr>
 						<th style="width: 5%">序号</th>
-						<th style="width: 10%">ID</th>
 						<th style="width: 5%">姓名</th>
 						<th style="width: 5%">学号</th>
 						<th style="width: 5%">网名</th>
 						<th style="width: 7%">电话</th>
 						<th style="width: 7%">密码</th>
-						<th style="width: 5%">类型</th>
+						<th style="width: 7%">用户类别</th>
+						<th style="width: 7%">成员类别</th>
 						<th style="width: 5%">信誉</th>
-						<th style="width: 12%">创建时间</th>
-						<th style="width: 12%">更新时间</th>
+						<th style="width: 5%">积分</th>
+						<th style="width: 5%">头像</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -201,7 +205,7 @@
 			            "where": {
 				        	"name": name
 			            },
-			            "skip": parseInt(page),
+			            "skip": parseInt(pageSize * page),
 			            "limit": parseInt(pageSize)
 			        }
 				} else {
@@ -212,7 +216,7 @@
 				            	{"usertype": usertype}
 			                ]
 			            },
-			            "skip": parseInt(page),
+			            "skip": parseInt(pageSize * page),
 			            "limit": parseInt(pageSize)
 			        }
 			    }
@@ -223,7 +227,7 @@
 			            "where": {
 				            "username": phone
 			            },
-			            "skip": parseInt(page),
+			            "skip": parseInt(pageSize * page),
 			            "limit": parseInt(pageSize)
 			        }
 				} else {
@@ -234,7 +238,7 @@
 				            	{"usertype": usertype}
 			                ]
 			            },
-			            "skip": parseInt(page),
+			            "skip": parseInt(pageSize * page),
 			            "limit": parseInt(pageSize)
 			        }
 			    }
@@ -245,7 +249,7 @@
 		            "where": {
 
 		            },
-		            "skip": parseInt(page),
+		            "skip": parseInt(pageSize * page),
 		            "limit": parseInt(pageSize)
 		        }
 		    } else {
@@ -253,7 +257,7 @@
 		            "where": {
 		            	"usertype": usertype
 		            },
-		            "skip": parseInt(page),
+		            "skip": parseInt(pageSize * page),
 		            "limit": parseInt(pageSize)
 		        }
 		    }
@@ -285,7 +289,9 @@
 				var str = "";
 				if(data) {
 					for(var i = 0; i < data.length; i++) {
-						str += ' <tr data-id="' + data[i].id + '"> <td>' + (page + (i + 1)) + '</td><td>' + data[i].id + '<td>' + data[i].name + '</td><td>' + data[i].number + '</td><td>' + data[i].onlinename + '</td><td>' + data[i].username + '</td><td>' + data[i].userpassword + '</td><td>' + data[i].usertype + '</td><td>' + data[i].reputation + '</td><td>' + data[i].createdAt + '</td><td>' + data[i].updatedAt + '</td></tr>';
+						var onlinename = (data[i].onlinename == null ? '' : data[i].onlinename);
+						var usertype = (data[i].usertype == 'admin' ? '管理员' : '普通用户');
+						str += ' <tr data-id="' + data[i].id + '"> <td>' + (pageSize * page + (i + 1)) + '</td><td>' + data[i].name + '</td><td>' + data[i].number + '</td><td>' + onlinename + '</td><td>' + data[i].username + '</td><td>' + data[i].userpassword + '</td><td>' + usertype + '</td><td>' + data[i].userType + '</td><td>' + data[i].userReputation + '</td><td>' + data[i].userIntegral + '</td><td><img src="' + data[i].head + '" /></td></tr>';
 					}
 					$('.main table tbody').html(str);
 

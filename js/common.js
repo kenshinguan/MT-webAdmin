@@ -476,13 +476,13 @@ $(function() {
 					_NUM = thisnum;
 					pager(_NUM, _TOTAL);
 					$("#page").val(thisnum);
-					getdata(_NUM*_PAGE_SIZE);
+					getdata(_NUM);
 					//  $("#selectCondition").submit();
 				} else {
 					_NUM = thisnum;
 					pager(_NUM, _TOTAL);
 					$("#page").val(thisnum);
-					getdata(thisnum*_PAGE_SIZE);
+					getdata(thisnum);
 				}
 			}
 		});
