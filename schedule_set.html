@@ -4,17 +4,18 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>字典</title>
-
-		<link href="css/zui.css" rel="stylesheet" />
-		<link href="css/chosen.css" rel="stylesheet" />
-
-		<link href="css/common.css" rel="stylesheet" />
-		<link href="css/page.css" rel="stylesheet" />
-		<script src="js/jquery-1.9.1.min.js"></script>
-		<script src="js/zui.js"></script>
-		<script src="js/chosen.js"></script>
-
-		<script src="js/common.js"></script>
+	    <link href="css/zui.css" rel="stylesheet" />
+	    <link href="css/chosen.css" rel="stylesheet" />
+	    <link href="css/datetimepicker.css" rel="stylesheet" />
+	    <link href="lib/datatable/zui.datatable.min.css" rel="stylesheet" />
+	    <link href="css/common.css" rel="stylesheet" />
+	    <link href="css/page.css" rel="stylesheet" />
+	    <script src="js/jquery-1.9.1.min.js"></script>
+	    <script src="js/zui.js"></script>
+	    <script src="js/chosen.js"></script>
+	    <script src="js/datetimepicker.js"></script>
+	    <script src="lib/datatable/zui.datatable.min.js"></script>
+	    <script src="js/common.js"></script>
 		<style type="text/css">
 			.chosen-container {
 				width: 400px !important;
@@ -36,27 +37,65 @@
 							<form method="" action="" class="modal-form">
 								<p>
 									<label for="">类型</label>
-									<select id="type" class="">
+									<select id="addType" class="">
 	                                    <option value="specialtys">专业</option>
 	                                    <option value="class">班级</option>
 									</select>
 								</p>
 								<p>
 									<label for="">专业</label>
-									<select id="specialtys" class="">
+									<select id="specialtys" class="" disabled="disabled">
 									</select>
 								</p>
 								<p>
 									<label for="">名称</label>
-									<input type="text" id="addName" style="width: 400px;">
+									<input type="text" id="addName">
 								</p>
 								<p style="color: #f00;">*新增班级，必须选择专业</p>
 							</form>
 						</div>
 						<div class="modal-footer text-center">
 							<button type="button" class="btn btn-primary" id="addsavelabelBtn">保存并创建</button>
-							<!--<button type="button" class="btn btn-primary" id="addlabelBtn">确定</button>-->
 							<button type="button" class="btn btn-default" data-dismiss="modal" id="canceladdlabel">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade addModal" id="addTables">
+				<div class="modal-dialog ">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+							<h4 class="modal-title">新建</h4>
+						</div>
+						<div class="modal-body">
+							<form method="" action="" class="modal-form">
+								<p>
+									<label for="">日期</label>
+									<input type="text" class="" readonly="readonly" id="date" />
+								</p>
+								<p>
+									<label for="">1-2节课</label>
+									<input type="text" id="name1-2"> - <input type="text" id="room1-2">
+								</p>
+								<p>
+									<label for="">3-4节课</label>
+									<input type="text" id="name3-4"> - <input type="text" id="room3-4">
+								</p>
+								<p>
+									<label for="">5-6节课</label>
+									<input type="text" id="name5-6"> - <input type="text" id="room5-6">
+								</p>
+								<p>
+									<label for="">7-8节课</label>
+									<input type="text" id="name7-8"> - <input type="text" id="room7-8">
+								</p>
+								<p style="color: #f00;">*新增班级，必须选择专业</p>
+							</form>
+						</div>
+						<div class="modal-footer text-center">
+							<button type="button" class="btn btn-primary" id="addsavetablesBtn">保存并创建</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal" id="">取消</button>
 						</div>
 					</div>
 				</div>
@@ -105,7 +144,7 @@
 					<button class="btn btn-primary" type="button" id="js-addGroup">新增</button>
 				</div>
 				<div class="col-md-5">
-					<button class="btn btn-primary" style="position: absolute;right: 0;margin-right: 10px;" type="button" id="js-addGroup">新增</button>
+					<button class="btn btn-primary" style="position: absolute;right: 0;margin-right: 10px;" type="button" id="js-addTables">新增</button>
 				</div>
 			</div>
 
@@ -166,10 +205,14 @@
 
 </html>
 <script>
-	var classId = '';
+	var specialtyId = '', specialtyName = '';
+	var classId = '', className = '';
 
 	$(function() {
+		$('#date').selecDay();
 		$('.submenu ').on("click", ".bd> li>a i", function() {
+			specialtyId = ($(this).attr("data-id") != undefined ? $(this).attr("data-id") : '');
+			specialtyName = ($(this).attr("data-name") != undefined ? $(this).attr("data-name") : '');
 			if($(this).parents('li').hasClass('open')) {
 				$(this).parents('li').removeClass('open');
 			} else {
@@ -181,10 +224,10 @@
 			$(".submenu a.active").removeClass("active")
 			$(this).addClass("active");
 			var $me = "table" + $(this).attr("data-id");
-			classId = $(this).parent('li').attr("data-id");
+			classId = ($(this).parent('li').attr("data-id") != undefined ? $(this).parent('li').attr("data-id") : '');
+			className = ($(this).parent('li').attr("data-name") != undefined ? $(this).parent('li').attr("data-name") : '');
 			getdata();
 			$("#" + $me).show().siblings("table").hide();
-
 		})
 		$(".cols-main").on('click', '.editBtn', function() {
 			var $me = $(this).parents("tr");
@@ -195,36 +238,60 @@
 			$('#tabId').val($me.parents('table').attr('id'));
 			$("#editmodal").modal("show");
 		})
-		$(".cols-main").on('click', '.delBtn', function() {
-				var $me = $(this).parents("tr");
-				$("#confirmDelId").val($me.attr("data-id"));
-				$('#deltabId').val($me.parents('table').attr('id'));
-				$("#confirmModal").modal("show");
-			})
-			//设置维护组
-		$(".cols-main").on('click', '.setMark', function() {
-				var $mark = $(this).text();
-				$(".MarkId").val($(this).parents("tr").attr("data-id"));
-				
-				//$("#confirmDelId").val($me.attr("data-id"));
-				if(isContact) {
-					if($mark == '维护组') {
-						$("#cancelMarkmodal").modal("show");
-					} else {
-						$("#setMarkmodal").modal("show");
-					}
-				}
-			})
-			/*新增分类*/
+		$('#addType').bind("change", function () {
+			var addType = $('#addType').val();
+			if (addType == "specialtys") {
+				$("#specialtys").val("");
+				$("#specialtys").attr("disabled", true);
+			} else if (addType == "class") {
+				$("#specialtys").attr("disabled", false);
+			}
+		})
+		/*新增专业、班级*/
 		$('#js-addGroup').click(function() {
 			$('#addGroup input[type=text]').val('');
 			$('#addGroup select').val('');
 			$('#addGroup').modal('show');
-			$('#depart').trigger('chosen:updated');
+
 		})
+		/*新增课程*/
+		$('#js-addTables').click(function() {
+			$('#addGroup input[type=text]').val('');
+			$('#addGroup select').val('');
+			$('#addTables').modal('show');
+		})
+
+		getspecialtys();
 
 		getclass();
 	})
+
+	function getspecialtys() {
+		$.ajax({
+			type: 'get',
+			url: service + "specialtys_list",
+			dataType: "json",
+            headers: {
+                "Content-type": "application/json;charset=UTF-8",
+                "X-APICloud-AppId": appId,
+                "X-APICloud-AppKey": appKey               
+            },
+			success: function(data) {
+				console.log(JSON.stringify(data));
+				if (data) {
+					var item = data;
+					var str = '<option value=""></option>';
+					for(var i = 0; i < item.length; i++) {
+						str += '<option value=' + item[i].id + '>' + item[i].name + '</option>';
+					}
+					$('#specialtys').html(str);
+				}
+			},
+			error: function() {
+				alert("发生错误");
+			}
+		});
+	}
 
 	function getclass() {
 		var param = {
@@ -244,9 +311,10 @@
 			success: function(data) {
 				console.log(JSON.stringify(data));
 				if (data) {
+					$(".submenu ul.bd").html("");
 					var item = data;
 					for(var i = 0; i < item.length; i++) {
-						var str = (i == 0 ? ' <li class="open"><a href="javascript:;"><i></i>' + item[i].name + '</a> <ul>' : ' <li><a href="javascript:;"><i></i>' + item[i].name + '</a> <ul>');
+						var str = (i == 0 ? ' <li class="open"><a href="javascript:;"><i data-id="' + item[i].id + '" data-name="' + item[i].name + '"></i>' + item[i].name + '</a> <ul>' : ' <li><a href="javascript:;"><i data-id="' + item[i].id + '" data-name="' + item[i].name + '"></i>' + item[i].name + '</a> <ul>');
 						for(var j = 0; j < item[i].class.length; j++) {
 							str += ' <li data-id="' + item[i].class[j].id + '" data-name="' + item[i].class[j].name + '"> <a href="javascript:;">' + item[i].class[j].name + '<span style="font-size:12px; margin-left:10px">编辑</span></a> </li>';
 						}
@@ -296,67 +364,118 @@
 		});
 
 	};
-	/*新增标签并保存上级标签，新增弹框不关闭*/
+	/*新增专业或者班级*/
 	$("#addsavelabelBtn").click(function() {
-			if(!$("#labelName").val()) {
-				alert("请输入标签名称");
+		if(!$("#addName").val()) {
+            $.zui.messager.show("请输入专业或者班级名称", {
+                placement: 'top',
+                time: '1000'
+            });
+			return false;
+		}
+		if ($('#addType').val() == "specialtys") {
+			var url = service + "specialtys_list";
+			var param = {
+				"name": $("#addName").val()
+			}
+		} else if ($('#addType').val() == "class") {
+			if(!$("#specialtys").val()) {
+	            $.zui.messager.show("请选择专业", {
+	                placement: 'top',
+	                time: '1000'
+	            });
 				return false;
 			}
-			var depart = $("#depart").val();
+			var url = service + "specialtys_list/" + $("#specialtys").val() + "/class";
 			var param = {
-					"pid": $("#depart").val(),
-					"operater": operater,
-					"categoryName": $("#labelName").val(),
-					"describer": $("#describer").val(),
-					"sessionKey": session.sessionKey,
-					"sessionId": session.sessionId
-				}
-				//alert(JSON.stringify(param));
-			$.ajax({
-// 				type: 'post',
-// 				url: service + "category/save_category",
-// 				dataType: "json",
-// 				data: param,
-// 				success: function(data) {
+				"specialtyId": $("#specialtys").val(),
+				"name": $("#addName").val()
+			}
+		}
+        param = JSON.stringify(param);
 
-// 					console.log(JSON.stringify(data));
-// 					$.zui.messager.show(data.reason, {
-// 						placement: 'top',
-// 						time: '1000'
-// 					});
-// 					if(data.ret == 'ok') {
-// //						$("#addGroup").modal("hide");
-//                         document.getElementById('labelName').value='';
-//                         document.getElementById('describer').value='';
-//                         document.getElementById("labelName").focus();
-// //						$(".cols-main").html("");
-// //						$(".submenu ul.bd").html("");
-// //						select = [];
-// 						//getdata();
-// 						var str = '.submenu ul li a[data-id=' + depart + ']';
-
-// 						$(str).click();
-
-// 					}
-
-// 				},
-// 				error: function() {
-// 					alert("发生错误");
-// 				}
-			});
-		})
-	/*取消新建标签*/
-	$('#canceladdlabel').click(function(){
-		$(".cols-main").html("");
-        $(".submenu ul.bd").html("");
-		getdata();
+        $.ajax({
+            type: 'post',
+            url: url,
+            dataType: "json",
+            data: param,
+            headers: {
+                "Content-type": "application/json;charset=UTF-8",
+                "X-APICloud-AppId": appId,
+                "X-APICloud-AppKey": appKey               
+            },
+            success: function (data) {
+	            $.zui.messager.show("新建成功", {
+	                placement: 'top',
+	                time: '1000'
+	            });
+	            $("#addGroup").modal("hide");
+				getspecialtys();
+				getclass();
+            },
+            error: function (error) {
+                console.log("发生错误：" + error.responseText);
+                $.zui.messager.show(JSON.parse(error.responseText).error.message, {
+                    placement: 'top',
+                    time: '1000'
+                });
+            }
+        });
 	})
-	$('#canceladdlabel1').click(function(){
-		$(".cols-main").html("");
-        $(".submenu ul.bd").html("");
-		getdata();
+	/*新增课程*/
+	$("#addsavetablesBtn").click(function() {
+		var course = [
+			{
+				"name": $("#name1-2").val(),
+				"room": $("#room1-2").val()
+			},{
+				"name": $("#name3-4").val(),
+				"room": $("#room3-4").val()
+			},{
+				"name": $("#name5-6").val(),
+				"room": $("#room5-6").val()
+			},{
+				"name": $("#name7-8").val(),
+				"room": $("#room7-8").val()
+			}
+		]
+		var param = {
+			"specialtyId": specialtyId,
+			"classId": classId,
+			"date": $("#date").val(),
+			"course": course 
+		}
+        param = JSON.stringify(param);
+        alert(param);
+        $.ajax({
+            type: 'post',
+            url: url = service + "timetables_list",
+            dataType: "json",
+            data: param,
+            headers: {
+                "Content-type": "application/json;charset=UTF-8",
+                "X-APICloud-AppId": appId,
+                "X-APICloud-AppKey": appKey               
+            },
+            success: function (data) {
+	            $.zui.messager.show("新建成功", {
+	                placement: 'top',
+	                time: '1000'
+	            });
+	            $("#addTables").modal("hide");
+				getdata();
+            },
+            error: function (error) {
+                console.log("发生错误：" + error.responseText);
+                $.zui.messager.show(JSON.parse(error.responseText).error.message, {
+                    placement: 'top',
+                    time: '1000'
+                });
+            }
+        });
 	})
-	//确认编辑
+
+	/*确认编辑*/
 	function confirmEditBtn() {
 		var labelName = $("#editName").val();
 		var labelId = $("#editId").val();
