@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>问题</title>
+		<link href="css/zui.css" rel="stylesheet" />
+		<link href="css/chosen.css" rel="stylesheet" />
+		<link href="lib/datatable/zui.datatable.min.css" rel="stylesheet" />
+		<link href="css/common.css" rel="stylesheet" />
+		<link href="css/page.css" rel="stylesheet" />
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script src="js/zui.js"></script>
+		<script src="js/chosen.js"></script>
+		<script src="lib/datatable/zui.datatable.min.js"></script>
+		<script src="js/common.js"></script>
+	</head>
+	<style type="text/css">
+		.modal-body label {
+			margin-left: 20px;
+		}
+		.modal-body .logo {
+			display: inline-block;
+		    width: 100px;
+		    height: 100px;
+		    margin-left: 0px;
+		}
+		.modal-body .logo img {
+		    width: 100%;
+		    height: 100%;
+		    line-height: 100px;
+		    margin-top: 0px;
+		    border-radius: 10%;
+		}
+
+        .banner {
+            margin-bottom: 0px;
+            padding-top: 10px;
+        }
+
+        .slider {
+            border-radius: 10px;
+            width: 100%;
+        }
+        .aui-content-padded .aui-col-xs-6 span {
+            font-weight:bold;
+        }
+        .author-style {
+            background-color: #E8BF51;
+            border-radius: 5px;
+            display: inline-block;
+            padding-left: 5px;           
+        }
+        .time-style {
+            background-color: #DAACF3;
+            border-radius: 5px;
+            display: inline-block;
+            padding-left: 5px;       
+        }
+        .justify {
+        	color: #000000;
+            text-align: justify;
+            text-indent:2em;
+            font-size: 1.4rem;
+            border-radius: 10px;
+            padding: 10px 10px;
+            margin-top: 10px;
+        }
+        .paragraph_1 {
+            border: 2px solid #009af7;
+            box-shadow:5px 2px 6px black;
+        }
+        .paragraph_2 {
+            border: 2px solid #E00858;
+            box-shadow:5px 2px 6px black;
+        }
+        .paragraph_3 {
+            border: 2px solid #faa732;
+            box-shadow:5px 2px 6px black;
+        }
+        .paragraph_4 {
+            border: 2px solid #2ecc71;
+            box-shadow:5px 2px 6px black;
+        }
+        .paragraph_5 {
+            border: 2px solid #DC2FCF;
+            box-shadow:5px 2px 6px black;
+        }
+        .paragraph_6 {
+            border: 2px solid #6215F7;
+            box-shadow:5px 2px 6px black;
+        }
+	</style>
+	<body class="minwidth1080">
+		<div class="head">
+	        <div class="modal fade addModal" id="detailsModal">
+	            <div class="modal-dialog">
+	                <div class="modal-content">
+	                    <div class="modal-header">
+	                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+	                        <h4 class="modal-title">标题</h4>
+	                    </div>
+	                    <div class="modal-body">
+						    <div class="">
+						        <div class="banner">
+						            <img class="slider" id="noticeImage_1" src="images/default_1.jpg"/>
+						        </div>
+						    </div>
+						    <div class="">
+						        <div style="padding-bottom: 20px;">
+						            <div class="aui-col-xs-6">
+						                <span class="author-style">编辑者：</span>
+						                <span id="author"></span>
+						            </div>
+						            <div class="aui-col-xs-6">
+						                <span class="time-style">发布时间：</span>
+						                <span id="time"></span>
+						            </div>
+						        </div>
+						        <p class="justify" id="content_1"></p>
+						        <div class="banner">
+						            <img class="slider" id="noticeImage_2" src="images/default_2.jpg"/>
+						        </div>
+						        <p class="justify" id="content_2"></p>
+						        <div class="banner">
+						            <img class="slider" id="noticeImage_3" src="images/default_3.jpg"/>
+						        </div>
+						        <p class="justify" id="content_3"></p>
+						        <p class="justify" id="content_4"></p>
+						        <p class="justify" id="content_5"></p>
+						        <p class="justify" id="content_6"></p>
+						    </div>
+	                    </div>
+	                    <div class="modal-footer text-center">
+	                        <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+
+
+			<ol class="breadcrumb">
+				<li>
+					<a href="your/url/"><i class="icon icon-home"></i>当前位置</a>
+				</li>
+				<li>
+					<a href="your/url/">新闻</a>
+				</li>
+				<li class="active">学院动态</li>
+			</ol>
+			<div class="row operationbar">
+				<div class="col-md-7">
+					<button class="btn btn-primary" type="button" id="js-addGroup">新增</button>
+				</div>
+				<div class="col-md-5">
+
+				</div>
+			</div>
+		</div>
+		<div class="main">
+			<table class="table table-striped table-bordered cardTable table-datatable datatable table-hover">
+				<thead>
+					<tr>
+						<th style="width: 7%">序号</th>
+						<th style="width: 40%">标题</th>
+						<th style="width: 15%">发布时间</th>
+						<th style="width: 5%">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+
+			</table>
+		</div>
+		<div class="footer row">
+			<div class="col-md-8 leftpage">
+				<span class="ml10">总计：<span class="total">82</span>条</span>
+				<label class="ml40">显示</label>
+				<select class="form-control" id="pageSize">
+					<option value="5">5</option>
+					<option value="10">10</option>
+					<option value="20">20</option>
+					<option value="50">50</option>
+					<option value="100">100</option>
+				</select>
+				<label>行</label>
+			</div>
+			<div class="text-right col-md-4">
+				<ul class="pager ">
+
+				</ul>
+				<input type="text" id="numtxt" />
+				<input type="submit" value="跳转" class="btn" id="gotopage" />
+			</div>
+		</div>
+
+	</body>
+
+</html>
+<script>
+	//初始化数据表
+	var page = 0,
+		pageSize = 5,
+		pagecount = 0,
+		totalSize = 0;
+
+	$(function() {
+
+		getdatanum();
+
+	});
+
+	//页面大小选择
+	$("#pageSize").bind("change", function() {
+		if($(this).val() == 0) {
+			return;
+		} else {
+			pageSize = $(this).val();
+
+			setpagesize(pageSize);
+
+			page = 0;
+
+			getdata(page);
+		}
+	});
+
+	function getdatanum() {
+		$.ajax({
+            type: 'get',
+            url: service + "collegeDynamics/count",
+            dataType: "json",
+            headers: {
+                "Content-type": "application/json;charset=UTF-8",
+                "X-APICloud-AppId": appId,
+                "X-APICloud-AppKey": appKey               
+            },
+			success: function(data) {
+				totalSize = data.count;
+
+				getdata(page);
+
+			},
+            error: function (error) {
+                console.log("发生错误：" + error.responseText);
+                $.zui.messager.show(JSON.parse(error.responseText).error.message, {
+                    placement: 'top',
+                    time: '1000'
+                });
+            }
+		});
+	}
+
+	function getdata(page) {
+        var param = {
+            "skip": parseInt(pageSize * page),
+            "limit": parseInt(pageSize),
+            "order": "createdAt DESC"
+        }
+		param = JSON.stringify(param);
+
+		$.ajax({
+            type: 'get',
+            url: service + "collegeDynamics?filter=" + param,
+            dataType: "json",
+            headers: {
+                "Content-type": "application/json;charset=UTF-8",
+                "X-APICloud-AppId": appId,
+                "X-APICloud-AppKey": appKey               
+            },
+			success: function(data) {
+				console.log(JSON.stringify(data));
+
+				pagecount = Math.ceil(totalSize / pageSize);
+
+				_TOTAL = pagecount;
+				_NUM = page;
+
+				pager(_NUM, _TOTAL);
+
+				var str = "";
+				if(data) {
+					for(var i = 0; i < data.length; i++) {
+						str += ' <tr data-id="' + data[i].id + '"> <td>' + (pageSize * page + (i + 1)) + '</td><td><a href="javascript:;" class="editBtn" onclick=\'check(' + JSON.stringify(data[i]) + ')\'>' + data[i].title + '</a><td>' + data[i].createdAt + '</td><td><a href="javascript:;" class="editBtn" onclick=\'delete(' + JSON.stringify(data[i]) + ')\'>删除</a></td></tr>';
+					}
+					$('.main table tbody').html(str);
+
+					$(".total").text(totalSize);
+
+				}
+
+			},
+            error: function (error) {
+                console.log("发生错误：" + JSON.stringify(error));
+                $.zui.messager.show(JSON.parse(error.responseText).error.message, {
+                    placement: 'top',
+                    time: '1000'
+                });
+            }
+		});
+	}
+
+	function check(data) {
+		$('#detailsModal .modal-title').text(data.title);
+        var author = data.content[0].author;
+        var time = data.content[1].time;
+        var content_1 = data.content[2].content_1;
+        var content_2 = data.content[3].content_2;
+        var content_3 = data.content[4].content_3;
+        var content_4 = data.content[5].content_4;
+        var content_5 = data.content[6].content_5;
+        var content_6 = data.content[7].content_6;
+        $('#author').text(author);
+        $('#time').text(time);
+        $('#content_1').text(content_1);
+        $('#content_2').text(content_2);
+        $('#content_3').text(content_3);
+        $('#content_4').text(content_4);
+        $('#content_5').text(content_5);
+        $('#content_6').text(content_6);
+        if (content_1 != '') {
+            $('#content_1').css('paragraph_1');
+        }
+        if (content_2 != '') {
+            $('#content_2').css('paragraph_2');
+        }
+        if (content_3 != '') {
+            $('#content_3').css('paragraph_3');
+        }
+        if (content_4 != '') {
+            $('#content_4').css('paragraph_4');
+        }
+        if (content_5 != '') {
+            $('#content_5').css('paragraph_5');
+        }
+        if (content_6 != '') {
+            $('#content_6').css('paragraph_6');
+        }
+        if (data.imgUrl[0]) {
+            $('#noticeImage_1').attr('src', data.imgUrl[0].imgUrl);  
+        } else {
+        	$('#noticeImage_1').attr('src', 'images/default_1.jpg');  
+        }
+        if (data.imgUrl[1]) {
+            $('#noticeImage_2').attr('src', data.imgUrl[1].imgUrl);  
+        } else {
+        	$('#noticeImage_2').attr('src', 'images/default_2.jpg');  
+        }
+        if (data.imgUrl[2]) {
+            $('#noticeImage_3').attr('src', data.imgUrl[2].imgUrl);  
+        } else {
+        	$('#noticeImage_3').attr('src', 'images/default_3.jpg');  
+        }
+		$('#detailsModal').modal('show');
+	}
+</script>
