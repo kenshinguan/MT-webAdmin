@@ -137,7 +137,9 @@
 				<li>
 					<a href="javascript:;">设置</a>
 				</li>
-				<li class="active">课表设置</li>
+				<li class="active">
+					课表设置
+				</li>
 			</ol>
 			<div class="row operationbar">
 				<div class="col-md-7">
@@ -210,15 +212,18 @@
 
 	$(function() {
 		$('#date').selecDay();
-		$('.submenu ').on("click", ".bd> li>a i", function() {
+		$('.submenu ').on("click", ".bd> li>a i", function(event) {
 			specialtyId = ($(this).attr("data-id") != undefined ? $(this).attr("data-id") : '');
 			specialtyName = ($(this).attr("data-name") != undefined ? $(this).attr("data-name") : '');
 			if($(this).parents('li').hasClass('open')) {
 				$(this).parents('li').removeClass('open');
+				$('.breadcrumb').html('<li><a href="javascript:;"><i class="icon icon-home"></i>当前位置</a></li><li><a href="javascript:;">设置</a></li><li class="active">课表设置</li>');
 			} else {
 				$('.submenu .bd> li.open').removeClass('open')
 				$(this).parents('li').addClass('open');
+				$('.breadcrumb').html('<li><a href="javascript:;"><i class="icon icon-home"></i>当前位置</a></li><li><a href="javascript:;">设置</a></li><li class="active">课表设置</li><li class="active">' + specialtyName + '</li>');
 			}
+			event.stopPropagation();
 		})
 		$(".submenu").on("click", "a ", function() {
 			$(".submenu a.active").removeClass("active")
@@ -226,6 +231,8 @@
 			var $me = "table" + $(this).attr("data-id");
 			classId = ($(this).parent('li').attr("data-id") != undefined ? $(this).parent('li').attr("data-id") : '');
 			className = ($(this).parent('li').attr("data-name") != undefined ? $(this).parent('li').attr("data-name") : '');
+			if (!className) return;
+			$('.breadcrumb').html('<li><a href="javascript:;"><i class="icon icon-home"></i>当前位置</a></li><li><a href="javascript:;">设置</a></li><li class="active">课表设置</li><li class="active">' + specialtyName + '</li><li class="active">' + className + '</li>');
 			getdata();
 			$("#" + $me).show().siblings("table").hide();
 		})
@@ -314,7 +321,7 @@
 					$(".submenu ul.bd").html("");
 					var item = data;
 					for(var i = 0; i < item.length; i++) {
-						var str = (i == 0 ? ' <li class="open"><a href="javascript:;"><i data-id="' + item[i].id + '" data-name="' + item[i].name + '"></i>' + item[i].name + '</a> <ul>' : ' <li><a href="javascript:;"><i data-id="' + item[i].id + '" data-name="' + item[i].name + '"></i>' + item[i].name + '</a> <ul>');
+						var str = (i == 0 ? ' <li><a href="javascript:;"><i data-id="' + item[i].id + '" data-name="' + item[i].name + '"></i>' + item[i].name + '</a> <ul>' : ' <li><a href="javascript:;"><i data-id="' + item[i].id + '" data-name="' + item[i].name + '"></i>' + item[i].name + '</a> <ul>');
 						for(var j = 0; j < item[i].class.length; j++) {
 							str += ' <li data-id="' + item[i].class[j].id + '" data-name="' + item[i].class[j].name + '"> <a href="javascript:;">' + item[i].class[j].name + '<span style="font-size:12px; margin-left:10px">编辑</span></a> </li>';
 						}
@@ -330,12 +337,13 @@
 	}
 
 	function getdata() {
+		if (!classId) {
+			return;
+		}
 		var param = {
             "where": {
 	        	"classId": classId
             }
-            // "skip": parseInt(pageSize * page),
-            // "limit": parseInt(pageSize)
 		}
 		param = JSON.stringify(param);
 
@@ -446,7 +454,7 @@
 			"course": course 
 		}
         param = JSON.stringify(param);
-        alert(param);
+
         $.ajax({
             type: 'post',
             url: url = service + "timetables_list",
