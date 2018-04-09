@@ -6,12 +6,14 @@
 		<title>问题</title>
 		<link href="css/zui.css" rel="stylesheet" />
 		<link href="css/chosen.css" rel="stylesheet" />
+		<link href="css/zui.uploader.min.css" rel="stylesheet" />
 		<link href="lib/datatable/zui.datatable.min.css" rel="stylesheet" />
 		<link href="css/common.css" rel="stylesheet" />
 		<link href="css/page.css" rel="stylesheet" />
 		<script src="js/jquery-1.9.1.min.js"></script>
 		<script src="js/zui.js"></script>
 		<script src="js/chosen.js"></script>
+		<script src="js/zui.uploader.min.js"></script>
 		<script src="lib/datatable/zui.datatable.min.js"></script>
 		<script src="js/common.js"></script>
 	</head>
@@ -90,9 +92,114 @@
             border: 2px solid #6215F7;
             box-shadow:5px 2px 6px black;
         }
+        .aui-col-xs-6 {
+        	float: left;
+        	width: 50%;
+        }
+        #addModal textarea {
+        	width: 100%;
+        	height: 160px;
+        }
+        #addModal input[type=text] {
+			display: inline-block;
+        }
+        #addModal .upload {
+			border: 1px solid #ddd;
+		    border-radius: 5px;
+		    margin-top: 10px;
+        }
+        #addModal .author-time {
+			display: inline-block;
+		    width: 100%;
+		    margin-top: 20px;
+        }
 	</style>
 	<body class="minwidth1080">
 		<div class="head">
+	        <div class="modal fade addModal" id="addModal">
+	            <div class="modal-dialog">
+	                <div class="modal-content">
+	                    <div class="modal-header">
+	                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+	                        <h4 class="modal-title">新增</h4>
+	                    </div>
+	                    <div class="modal-body">
+						    <div class="">
+							    <span class="">标题：</span>
+						        <input type="text" class="form-control" placeholder="用户名">
+						    </div>
+						    <div class="">
+						    	<div class="upload">
+									<div id='uploaderExample3' class="uploader" data-ride="uploader" data-url="your/file/upload/url">
+									  <div class="uploader-message text-center">
+									    <div class="content"></div>
+									    <button type="button" class="close">×</button>
+									  </div>
+									  <div class="uploader-files file-list file-list-grid"></div>
+									  <div>
+									    <hr class="divider">
+									    <div class="uploader-status pull-right text-muted"></div>
+									    <button type="button" class="btn btn-link uploader-btn-browse"><i class="icon icon-plus"></i> 选择文件</button>
+									    <button type="button" class="btn btn-link uploader-btn-start"><i class="icon icon-cloud-upload"></i> 开始上传</button>
+									  </div>
+									</div>
+								</div>	
+						    </div>
+						    <div class="">	
+						        <div class="author-time">
+						            <div class="aui-col-xs-6">
+						                <span class="">编辑者：</span>
+						                <input type="text" class="form-control" placeholder="用户名">
+						            </div>
+						            <div class="aui-col-xs-6">
+						                <span class="">发布时间：</span>
+						                <input type="text" class="form-control" placeholder="用户名">
+						            </div>
+						        </div>
+						        <textarea class="form-control justify paragraph_1" rows="6" placeholder="可以输入多行文本"></textarea>
+						        <div class="upload">
+									<div id='uploaderExample3' class="uploader" data-ride="uploader" data-url="your/file/upload/url">
+									  <div class="uploader-message text-center">
+									    <div class="content"></div>
+									    <button type="button" class="close">×</button>
+									  </div>
+									  <div class="uploader-files file-list file-list-grid"></div>
+									  <div>
+									    <hr class="divider">
+									    <div class="uploader-status pull-right text-muted"></div>
+									    <button type="button" class="btn btn-link uploader-btn-browse"><i class="icon icon-plus"></i> 选择文件</button>
+									    <button type="button" class="btn btn-link uploader-btn-start"><i class="icon icon-cloud-upload"></i> 开始上传</button>
+									  </div>
+									</div>
+						        </div>
+						        <textarea class="form-control justify paragraph_2" rows="6" placeholder="可以输入多行文本"></textarea>
+						        <div class="upload">
+									<div id='uploaderExample3' class="uploader" data-ride="uploader" data-url="your/file/upload/url">
+									  <div class="uploader-message text-center">
+									    <div class="content"></div>
+									    <button type="button" class="close">×</button>
+									  </div>
+									  <div class="uploader-files file-list file-list-grid"></div>
+									  <div>
+									    <hr class="divider">
+									    <div class="uploader-status pull-right text-muted"></div>
+									    <button type="button" class="btn btn-link uploader-btn-browse"><i class="icon icon-plus"></i> 选择文件</button>
+									    <button type="button" class="btn btn-link uploader-btn-start"><i class="icon icon-cloud-upload"></i> 开始上传</button>
+									  </div>
+									</div>
+						        </div>
+						        <textarea class="form-control justify paragraph_3" rows="6" placeholder="可以输入多行文本"></textarea>
+						        <textarea class="form-control justify paragraph_4" rows="6" placeholder="可以输入多行文本"></textarea>
+						        <textarea class="form-control justify paragraph_5" rows="6" placeholder="可以输入多行文本"></textarea>
+						        <textarea class="form-control justify paragraph_6" rows="6" placeholder="可以输入多行文本"></textarea>
+						    </div>
+	                    </div>
+	                    <div class="modal-footer text-center">
+	                        <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
 	        <div class="modal fade addModal" id="detailsModal">
 	            <div class="modal-dialog">
 	                <div class="modal-content">
@@ -137,7 +244,6 @@
 	                </div>
 	            </div>
 	        </div>
-
 
 			<ol class="breadcrumb">
 				<li>
@@ -223,6 +329,12 @@
 
 			getdata(page);
 		}
+	});
+
+	$("#js-addGroup").click(function() {
+		$('#addModal').modal({
+    		backdrop: 'static'
+    	});
 	});
 
 	function getdatanum() {
@@ -319,22 +431,22 @@
         $('#content_5').text(content_5);
         $('#content_6').text(content_6);
         if (content_1 != '') {
-            $('#content_1').css('paragraph_1');
+            $('#content_1').addClass('paragraph_1');
         }
         if (content_2 != '') {
-            $('#content_2').css('paragraph_2');
+            $('#content_2').addClass('paragraph_2');
         }
         if (content_3 != '') {
-            $('#content_3').css('paragraph_3');
+            $('#content_3').addClass('paragraph_3');
         }
         if (content_4 != '') {
-            $('#content_4').css('paragraph_4');
+            $('#content_4').addClass('paragraph_4');
         }
         if (content_5 != '') {
-            $('#content_5').css('paragraph_5');
+            $('#content_5').addClass('paragraph_5');
         }
         if (content_6 != '') {
-            $('#content_6').css('paragraph_6');
+            $('#content_6').addClass('paragraph_6');
         }
         if (data.imgUrl[0]) {
             $('#noticeImage_1').attr('src', data.imgUrl[0].imgUrl);  
@@ -351,6 +463,28 @@
         } else {
         	$('#noticeImage_3').attr('src', 'images/default_3.jpg');  
         }
-		$('#detailsModal').modal('show');
+		$('#detailsModal').modal({
+    		backdrop: 'static'
+    	});
 	}
+
+	$('#detailsModal').on('hidden.zui.modal', function() {
+        $('#author').text('');
+        $('#time').text('');
+        $('#content_1').text('');
+        $('#content_2').text('');
+        $('#content_3').text('');
+        $('#content_4').text('');
+        $('#content_5').text('');
+        $('#content_6').text('');
+        $('#noticeImage_1').attr('src', 'images/default_1.jpg'); 
+        $('#noticeImage_2').attr('src', 'images/default_2.jpg'); 
+        $('#noticeImage_3').attr('src', 'images/default_3.jpg');  
+        $('#content_1').removeClass('paragraph_1');
+        $('#content_2').removeClass('paragraph_2');
+        $('#content_3').removeClass('paragraph_3');
+        $('#content_4').removeClass('paragraph_4');
+        $('#content_5').removeClass('paragraph_5');
+        $('#content_6').removeClass('paragraph_6');
+	})
 </script>
